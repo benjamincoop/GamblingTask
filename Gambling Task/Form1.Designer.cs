@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.MenuActions = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuActionsStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuActionsStop = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuActionsStart = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuActionsStop = new System.Windows.Forms.ToolStripMenuItem();
             this.RollButton = new System.Windows.Forms.Button();
             this.CollectButton = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -66,9 +66,26 @@
             this.MenuActions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuActionsStart,
             this.MenuActionsStop});
+            this.MenuActions.Enabled = false;
             this.MenuActions.Name = "MenuActions";
             this.MenuActions.Size = new System.Drawing.Size(70, 24);
             this.MenuActions.Text = "Actions";
+            // 
+            // MenuActionsStart
+            // 
+            this.MenuActionsStart.Enabled = false;
+            this.MenuActionsStart.Name = "MenuActionsStart";
+            this.MenuActionsStart.Size = new System.Drawing.Size(115, 26);
+            this.MenuActionsStart.Text = "Start";
+            this.MenuActionsStart.Click += new System.EventHandler(this.MenuActionsStart_Click);
+            // 
+            // MenuActionsStop
+            // 
+            this.MenuActionsStop.Enabled = false;
+            this.MenuActionsStop.Name = "MenuActionsStop";
+            this.MenuActionsStop.Size = new System.Drawing.Size(115, 26);
+            this.MenuActionsStop.Text = "Stop";
+            this.MenuActionsStop.Click += new System.EventHandler(this.MenuActionsStop_Click);
             // 
             // MenuConfig
             // 
@@ -90,22 +107,6 @@
             this.MenuExit.Size = new System.Drawing.Size(45, 24);
             this.MenuExit.Text = "Exit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
-            // 
-            // MenuActionsStart
-            // 
-            this.MenuActionsStart.Enabled = false;
-            this.MenuActionsStart.Name = "MenuActionsStart";
-            this.MenuActionsStart.Size = new System.Drawing.Size(216, 26);
-            this.MenuActionsStart.Text = "Start";
-            this.MenuActionsStart.Click += new System.EventHandler(this.MenuActionsStart_Click);
-            // 
-            // MenuActionsStop
-            // 
-            this.MenuActionsStop.Enabled = false;
-            this.MenuActionsStop.Name = "MenuActionsStop";
-            this.MenuActionsStop.Size = new System.Drawing.Size(216, 26);
-            this.MenuActionsStop.Text = "Stop";
-            this.MenuActionsStop.Click += new System.EventHandler(this.MenuActionsStop_Click);
             // 
             // RollButton
             // 
@@ -176,7 +177,7 @@
             // 
             // SlotBlinkTimer
             // 
-            this.SlotBlinkTimer.Interval = 500;
+            this.SlotBlinkTimer.Interval = 250;
             this.SlotBlinkTimer.Tick += new System.EventHandler(this.SlotBlinkTimer_Tick);
             // 
             // TimeoutTimer
