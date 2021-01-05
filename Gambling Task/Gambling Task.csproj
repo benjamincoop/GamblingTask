@@ -61,25 +61,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewPhase.cs">
+    <Compile Include="NewPhaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewPhase.Designer.cs">
-      <DependentUpon>NewPhase.cs</DependentUpon>
+    <Compile Include="NewPhaseForm.Designer.cs">
+      <DependentUpon>NewPhaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PhaseConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewPhase.resx">
-      <DependentUpon>NewPhase.cs</DependentUpon>
+    <EmbeddedResource Include="NewPhaseForm.resx">
+      <DependentUpon>NewPhaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
