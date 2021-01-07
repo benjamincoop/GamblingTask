@@ -83,6 +83,7 @@
     <Compile Include="PhaseConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SlotsEngine.cs" />
     <EmbeddedResource Include="LooksConfigForm.resx">
       <DependentUpon>LooksConfigForm.cs</DependentUpon>
     </EmbeddedResource>
