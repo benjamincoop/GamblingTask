@@ -31,14 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuFileNew = new System.Windows.Forms.ToolStripMenuItem();
             this.savePhaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuFileLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuConfigPhase = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuConfigUI = new System.Windows.Forms.ToolStripMenuItem();
+            this.queueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuAction = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuActionStartStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuPhaseStartStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuPhaseNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuPhasePrev = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.LeftButton = new System.Windows.Forms.Button();
@@ -71,19 +73,11 @@
             // MenuFile
             // 
             this.MenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuFileNew,
             this.savePhaseToolStripMenuItem,
             this.MenuFileLoad});
             this.MenuFile.Name = "MenuFile";
             this.MenuFile.Size = new System.Drawing.Size(44, 24);
             this.MenuFile.Text = "File";
-            // 
-            // MenuFileNew
-            // 
-            this.MenuFileNew.Name = "MenuFileNew";
-            this.MenuFileNew.Size = new System.Drawing.Size(159, 26);
-            this.MenuFileNew.Text = "New Phase";
-            this.MenuFileNew.Click += new System.EventHandler(this.OpenPhaseConfig);
             // 
             // savePhaseToolStripMenuItem
             // 
@@ -103,7 +97,8 @@
             // 
             this.MenuConfig.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuConfigPhase,
-            this.MenuConfigUI});
+            this.MenuConfigUI,
+            this.queueToolStripMenuItem});
             this.MenuConfig.Name = "MenuConfig";
             this.MenuConfig.Size = new System.Drawing.Size(47, 24);
             this.MenuConfig.Text = "Edit";
@@ -111,31 +106,54 @@
             // MenuConfigPhase
             // 
             this.MenuConfigPhase.Name = "MenuConfigPhase";
-            this.MenuConfigPhase.Size = new System.Drawing.Size(142, 26);
+            this.MenuConfigPhase.Size = new System.Drawing.Size(216, 26);
             this.MenuConfigPhase.Text = "Phase";
             this.MenuConfigPhase.Click += new System.EventHandler(this.OpenPhaseConfig);
             // 
             // MenuConfigUI
             // 
             this.MenuConfigUI.Name = "MenuConfigUI";
-            this.MenuConfigUI.Size = new System.Drawing.Size(142, 26);
+            this.MenuConfigUI.Size = new System.Drawing.Size(216, 26);
             this.MenuConfigUI.Text = "Interface";
             this.MenuConfigUI.Click += new System.EventHandler(this.MenuConfigUI_Click);
+            // 
+            // queueToolStripMenuItem
+            // 
+            this.queueToolStripMenuItem.Name = "queueToolStripMenuItem";
+            this.queueToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.queueToolStripMenuItem.Text = "Queue";
+            this.queueToolStripMenuItem.Click += new System.EventHandler(this.queueToolStripMenuItem_Click);
             // 
             // MenuAction
             // 
             this.MenuAction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuActionStartStop});
+            this.MenuPhaseStartStop,
+            this.MenuPhaseNext,
+            this.MenuPhasePrev});
             this.MenuAction.Name = "MenuAction";
-            this.MenuAction.Size = new System.Drawing.Size(64, 24);
-            this.MenuAction.Text = "Action";
+            this.MenuAction.Size = new System.Drawing.Size(59, 24);
+            this.MenuAction.Text = "Phase";
             // 
-            // MenuActionStartStop
+            // MenuPhaseStartStop
             // 
-            this.MenuActionStartStop.Name = "MenuActionStartStop";
-            this.MenuActionStartStop.Size = new System.Drawing.Size(152, 26);
-            this.MenuActionStartStop.Text = "Start/Stop";
-            this.MenuActionStartStop.Click += new System.EventHandler(this.MenuActionStartStop_Click);
+            this.MenuPhaseStartStop.Name = "MenuPhaseStartStop";
+            this.MenuPhaseStartStop.Size = new System.Drawing.Size(216, 26);
+            this.MenuPhaseStartStop.Text = "Start/Stop";
+            this.MenuPhaseStartStop.Click += new System.EventHandler(this.MenuActionStartStop_Click);
+            // 
+            // MenuPhaseNext
+            // 
+            this.MenuPhaseNext.Name = "MenuPhaseNext";
+            this.MenuPhaseNext.Size = new System.Drawing.Size(216, 26);
+            this.MenuPhaseNext.Text = "Next";
+            this.MenuPhaseNext.Click += new System.EventHandler(this.MenuPhaseNext_Click);
+            // 
+            // MenuPhasePrev
+            // 
+            this.MenuPhasePrev.Name = "MenuPhasePrev";
+            this.MenuPhasePrev.Size = new System.Drawing.Size(216, 26);
+            this.MenuPhasePrev.Text = "Previous";
+            this.MenuPhasePrev.Click += new System.EventHandler(this.MenuPhasePrev_Click);
             // 
             // MenuHelp
             // 
@@ -297,16 +315,18 @@
         private System.Windows.Forms.Button Slot3;
         private System.Windows.Forms.Timer BlinkTimer;
         private System.Windows.Forms.Button CenterButton;
-        private System.Windows.Forms.ToolStripMenuItem MenuFileNew;
         private System.Windows.Forms.ToolStripMenuItem MenuFileLoad;
         private System.Windows.Forms.ToolStripMenuItem MenuConfigPhase;
         private System.Windows.Forms.ToolStripMenuItem MenuConfigUI;
         private System.Windows.Forms.ToolStripMenuItem MenuAction;
-        private System.Windows.Forms.ToolStripMenuItem MenuActionStartStop;
+        private System.Windows.Forms.ToolStripMenuItem MenuPhaseStartStop;
         private System.Windows.Forms.Timer DelayTimer;
         private System.Windows.Forms.ToolStripMenuItem savePhaseToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog OpenDialog;
         private System.Windows.Forms.SaveFileDialog SaveDialog;
+        private System.Windows.Forms.ToolStripMenuItem queueToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuPhaseNext;
+        private System.Windows.Forms.ToolStripMenuItem MenuPhasePrev;
     }
 }
 

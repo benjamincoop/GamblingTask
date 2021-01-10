@@ -29,6 +29,8 @@ namespace Gambling_Task
         private int activeSlot = 0; // index of current slot in slots[]
         private int numSlots = 0; // the number of slots to be pressed
         private int[] result; // the outcome of the slot spin
+        private PhaseConfig[] phaseQueue = new PhaseConfig[0]; // the array of phases to iterate through.
+        public int CurrentPhase { get; set; } // the index of the current phase in the phase queue.
 
         public MainForm()
         {
@@ -78,29 +80,13 @@ namespace Gambling_Task
         /// <param name="e"></param>
         private void OpenPhaseConfig(object sender, EventArgs e)
         {
-            Form phaseEditor;
-            bool modified;
+            Form phaseEditor = new PhaseConfigForm(this, Phase);
 
-            if (((ToolStripMenuItem)sender).Text == "Phase") {
-                phaseEditor = new PhaseConfigForm(this, Phase);
-                modified = true;
-            } else
-            {
-                phaseEditor = new PhaseConfigForm(this);
-                modified = false;
-            }
-            
             DialogResult result = phaseEditor.ShowDialog();
             if (result == DialogResult.OK)
             {
                 UpdateEngine();
-                if(modified)
-                {
-                    MessageBox.Show("Phase configuration updated.");
-                } else
-                {
-                    MessageBox.Show("Phase configuration created.");
-                }
+                MessageBox.Show("Phase configuration updated.");
                 UpdateLooks();
             }
             else
@@ -142,6 +128,7 @@ namespace Gambling_Task
             buttons = new Button[3] { LeftButton, RightButton, CenterButton };
             Phase = new PhaseConfig(); 
             Looks = new LooksConfig();
+            CurrentPhase = 0;
             UpdateEngine();
             UpdateLooks();
         }
@@ -448,6 +435,8 @@ namespace Gambling_Task
                 stage = TrialStage.Starting;
                 MenuConfig.Enabled = false;
                 MenuFile.Enabled = false;
+                MenuPhaseNext.Enabled = false;
+                MenuPhasePrev.Enabled = false;
                 AdvanceTrial(null);
 
             } else // stopping
@@ -455,6 +444,8 @@ namespace Gambling_Task
                 stage = TrialStage.Stopped;
                 MenuConfig.Enabled = true;
                 MenuFile.Enabled = true;
+                MenuPhaseNext.Enabled = true;
+                MenuPhasePrev.Enabled = true;
                 UpdateLooks();
             }
         }
@@ -518,6 +509,67 @@ namespace Gambling_Task
         {
             DelayTimer.Enabled = false;
             AdvanceTrial(null);
+        }
+
+        private void queueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form queueEditor = new QueueConfigForm(this);
+            if (queueEditor.ShowDialog() == DialogResult.OK)
+            {
+                if(phaseQueue.Length < CurrentPhase + 1)
+                {
+                    Array.Resize(ref phaseQueue, CurrentPhase + 1);
+                }
+                
+                if(phaseQueue[CurrentPhase] == null)
+                {
+                    phaseQueue[CurrentPhase] = Phase;
+                    MessageBox.Show("Saved configuration to selected queue position.");
+                } else
+                {
+                    Phase = phaseQueue[CurrentPhase];
+                    MessageBox.Show("Loaded configuration from selected queue position.");
+                }
+
+                UpdateEngine();
+                UpdateLooks();
+            }
+            else
+            {
+                MessageBox.Show("Operation aborted.");
+            }
+            queueEditor.Dispose();
+        }
+
+        private void MenuPhaseNext_Click(object sender, EventArgs e)
+        {
+            if (phaseQueue.Length > CurrentPhase + 1)
+            {
+                CurrentPhase++;
+                Phase = phaseQueue[CurrentPhase];
+                MessageBox.Show("Loaded next phase in queue.");
+                UpdateEngine();
+                UpdateLooks();
+            } else
+            {
+                MessageBox.Show("End of queue reached.");
+            }
+        }
+
+        private void MenuPhasePrev_Click(object sender, EventArgs e)
+        {
+            if (CurrentPhase > 0)
+            {
+                CurrentPhase--;
+                Phase = phaseQueue[CurrentPhase];
+                MessageBox.Show("Loaded previous phase in queue.");
+                UpdateEngine();
+                UpdateLooks();
+            }
+            else
+            {
+                MessageBox.Show("Start of queue reached.");
+            }
         }
     }
 }

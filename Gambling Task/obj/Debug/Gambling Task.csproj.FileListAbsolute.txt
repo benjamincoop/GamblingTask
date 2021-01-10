@@ -20,3 +20,4 @@ C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling Task.e
 C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling Task.pdb
 C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling_Task.LooksConfigForm.resources
 C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling_Task.PhaseConfigForm.resources
+C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling_Task.QueueConfigForm.resources
