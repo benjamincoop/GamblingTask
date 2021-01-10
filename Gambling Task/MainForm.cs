@@ -13,20 +13,22 @@ using System.Windows.Forms;
 
 namespace Gambling_Task
 {
+    /// <summary>
+    /// Handles main UI and program logic.
+    /// </summary>
     public partial class MainForm : Form
     {
         enum TrialStage { Stopped, Starting, Started, PreTrialDelay, WaitingForStartButton, WaitingForSlot, WaitingForCollectButton, TimeoutDelay}
 
-        public PhaseConfig Phase { get; set; }
-        public LooksConfig Looks { get; set; }
-        private SlotsEngine engine;
-        private Button[] slots;
-        private Button[] buttons;
-        private TrialStage stage = TrialStage.Stopped;
-        private string filePath;
+        public PhaseConfig Phase { get; set; } // the current PhaseConfig object used in the slot simulation
+        public LooksConfig Looks { get; set; } // the current LooksConfig object used by the GUI
+        private SlotsEngine engine; // the current SlotsEngine object used in the slot simulation
+        private Button[] slots; // array of references to all slots
+        private Button[] buttons; // array of references to all buttons
+        private TrialStage stage = TrialStage.Stopped; // the current state of the state machine that controls the slot simulation
         private int activeSlot = 0; // index of current slot in slots[]
         private int numSlots = 0; // the number of slots to be pressed
-        private int[] result; // the outcome of the slot spin.
+        private int[] result; // the outcome of the slot spin
 
         public MainForm()
         {
@@ -205,6 +207,11 @@ namespace Gambling_Task
             engine = new SlotsEngine(Phase.Slots, Phase.Schedule);
         }
 
+        /// <summary>
+        /// Handle slot clicks.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SlotClick(object sender, EventArgs e)
         {
             // Advance trial if active slot is clicked.
@@ -215,33 +222,30 @@ namespace Gambling_Task
             }
         }
 
-        // advance trial when button is clicked.
+        /// <summary>
+        /// Handle button clicks.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonClick(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             button.Enabled = false;
-            if(Looks.ActiveBtnsOnly)
+            if (Looks.ActiveBtnsOnly)
             {
                 button.Visible = false;
             }
             AdvanceTrial(button);
         }
 
-        private void TimeoutTimer_Tick(object sender, EventArgs e)
-        {
-            TimeoutTimer.Enabled = false;
-            AdvanceTrial(null);
-        }
-
-
         /// <summary>
-        /// Continue trial when delay time is up.
+        /// Continue trial when timeout time is up.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void StartTimer_Tick(object sender, EventArgs e)
+        private void TimeoutTimer_Tick(object sender, EventArgs e)
         {
-            StartTimer.Enabled = false;
+            DelayTimer.Enabled = false;
             AdvanceTrial(null);
         }
 
@@ -259,8 +263,15 @@ namespace Gambling_Task
                     {
                         // start pretrial delay timer
                         stage = TrialStage.PreTrialDelay;
-                        StartTimer.Interval = Phase.StartCond[1] * 1000;
-                        StartTimer.Enabled = true;
+                        if(Phase.StartCond[1] == 0) // check if delay time is 0
+                        {
+                            DelayTimer_Tick(null, null); // invoke timer elapsed method to skip timer
+                        } else
+                        {
+                            // set and start timer.
+                            DelayTimer.Interval = Phase.StartCond[1] * 1000;
+                            DelayTimer.Enabled = true;
+                        }
                     } else
                     {
                         // start waiting for start button press
@@ -380,10 +391,17 @@ namespace Gambling_Task
                     // fail state
                     if(sender == buttons[Phase.TimeoutButton] & SlotsEngine.CheckRoll(result) == false)
                     {
-                        //disable other buttons
                         stage = TrialStage.TimeoutDelay;
-                        TimeoutTimer.Interval = Phase.Timeout * 1000;
-                        TimeoutTimer.Enabled = true;
+                        if (Phase.Timeout == 0) // check if timeout time is 0
+                        {
+                            DelayTimer_Tick(null, null); // invoke timer elapsed method to skip timer
+                        }
+                        else
+                        {
+                            // set and start timer.
+                            DelayTimer.Interval = Phase.Timeout * 1000;
+                            DelayTimer.Enabled = true;
+                        }
                     } else
                     {
                         // success state
@@ -463,6 +481,11 @@ namespace Gambling_Task
             stream.Close();
         }
 
+        /// <summary>
+        /// Handles save button click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void savePhaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(SaveDialog.ShowDialog() == DialogResult.OK)
@@ -472,6 +495,11 @@ namespace Gambling_Task
             }
         }
 
+        /// <summary>
+        /// Handles load button click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuFileLoad_Click(object sender, EventArgs e)
         {
             if(OpenDialog.ShowDialog() == DialogResult.OK)
@@ -479,6 +507,17 @@ namespace Gambling_Task
                 PhaseFileIO(OpenDialog.FileName, false);
                 MessageBox.Show("File loaded.");
             }
+        }
+
+        /// <summary>
+        /// Continue trial when timer expires.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DelayTimer_Tick(object sender, EventArgs e)
+        {
+            DelayTimer.Enabled = false;
+            AdvanceTrial(null);
         }
     }
 }

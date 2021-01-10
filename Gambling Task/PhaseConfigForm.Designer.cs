@@ -83,11 +83,6 @@
             this.DataSlotOutcome = new System.Windows.Forms.CheckBox();
             this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.SaveOption = new System.Windows.Forms.RadioButton();
-            this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.SavePathField = new System.Windows.Forms.TextBox();
-            this.SaveBrowseButton = new System.Windows.Forms.Button();
-            this.NoSaveOption = new System.Windows.Forms.RadioButton();
             this.SlotsGroupBox.SuspendLayout();
             this.RewardGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RewardAmount)).BeginInit();
@@ -769,63 +764,12 @@
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
             // 
-            // SaveOption
-            // 
-            this.SaveOption.AutoSize = true;
-            this.SaveOption.Location = new System.Drawing.Point(458, 412);
-            this.SaveOption.Name = "SaveOption";
-            this.SaveOption.Size = new System.Drawing.Size(103, 21);
-            this.SaveOption.TabIndex = 16;
-            this.SaveOption.TabStop = true;
-            this.SaveOption.Text = "Save to File";
-            this.SaveOption.UseVisualStyleBackColor = true;
-            this.SaveOption.CheckedChanged += new System.EventHandler(this.SaveOption_CheckedChanged);
-            // 
-            // SaveDialog
-            // 
-            this.SaveDialog.AddExtension = false;
-            // 
-            // SavePathField
-            // 
-            this.SavePathField.Enabled = false;
-            this.SavePathField.Location = new System.Drawing.Point(567, 412);
-            this.SavePathField.Name = "SavePathField";
-            this.SavePathField.Size = new System.Drawing.Size(269, 22);
-            this.SavePathField.TabIndex = 17;
-            // 
-            // SaveBrowseButton
-            // 
-            this.SaveBrowseButton.Enabled = false;
-            this.SaveBrowseButton.Location = new System.Drawing.Point(761, 440);
-            this.SaveBrowseButton.Name = "SaveBrowseButton";
-            this.SaveBrowseButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveBrowseButton.TabIndex = 18;
-            this.SaveBrowseButton.Text = "Browse...";
-            this.SaveBrowseButton.UseVisualStyleBackColor = true;
-            this.SaveBrowseButton.Click += new System.EventHandler(this.SaveBrowseButton_Click);
-            // 
-            // NoSaveOption
-            // 
-            this.NoSaveOption.AutoSize = true;
-            this.NoSaveOption.Checked = true;
-            this.NoSaveOption.Location = new System.Drawing.Point(458, 442);
-            this.NoSaveOption.Name = "NoSaveOption";
-            this.NoSaveOption.Size = new System.Drawing.Size(98, 21);
-            this.NoSaveOption.TabIndex = 19;
-            this.NoSaveOption.TabStop = true;
-            this.NoSaveOption.Text = "Don\'t Save";
-            this.NoSaveOption.UseVisualStyleBackColor = true;
-            // 
             // PhaseConfigForm
             // 
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(922, 521);
-            this.Controls.Add(this.NoSaveOption);
-            this.Controls.Add(this.SaveBrowseButton);
-            this.Controls.Add(this.SavePathField);
-            this.Controls.Add(this.SaveOption);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.DataGroupBox);
@@ -868,7 +812,6 @@
             this.DataGroupBox.ResumeLayout(false);
             this.DataGroupBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -924,11 +867,6 @@
         private System.Windows.Forms.GroupBox DataGroupBox;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.RadioButton SaveOption;
-        private System.Windows.Forms.SaveFileDialog SaveDialog;
-        private System.Windows.Forms.TextBox SavePathField;
-        private System.Windows.Forms.Button SaveBrowseButton;
-        private System.Windows.Forms.RadioButton NoSaveOption;
         private System.Windows.Forms.CheckBox DataTrialOutcome;
         private System.Windows.Forms.CheckBox DataSubstageTime;
         private System.Windows.Forms.CheckBox DataTrialTime;
