@@ -142,6 +142,13 @@ namespace Gambling_Task
         {
             DialogResult = DialogResult.OK;
             parent.Phase = CollectInput();
+
+            // save phase, if requested.
+            if(SaveOption.Checked)
+            {
+                parent.PhaseFileIO(SavePathField.Text, true);
+            }
+
             Close();
         }
 
@@ -239,6 +246,20 @@ namespace Gambling_Task
                 progressCond[5] = (int)ProgressOptimalPercent.Value;
             }
             return new PhaseConfig(slots, schedule, rewardAmount, rewardButton, timeout, timeoutButton, startCond, progressCond);
+        }
+
+        private void SaveOption_CheckedChanged(object sender, EventArgs e)
+        {
+            SaveBrowseButton.Enabled = SaveOption.Checked;
+            SavePathField.Enabled = SaveOption.Checked;
+        }
+
+        private void SaveBrowseButton_Click(object sender, EventArgs e)
+        {
+            if(SaveDialog.ShowDialog() == DialogResult.OK)
+            {
+                SavePathField.Text = SaveDialog.FileName;
+            }
         }
     }
 }

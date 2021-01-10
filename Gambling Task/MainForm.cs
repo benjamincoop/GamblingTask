@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,6 +23,7 @@ namespace Gambling_Task
         private Button[] slots;
         private Button[] buttons;
         private TrialStage stage = TrialStage.Stopped;
+        private string filePath;
         private int activeSlot = 0; // index of current slot in slots[]
         private int numSlots = 0; // the number of slots to be pressed
         private int[] result; // the outcome of the slot spin.
@@ -241,7 +245,10 @@ namespace Gambling_Task
             AdvanceTrial(null);
         }
 
-
+        /// <summary>
+        /// Main driving logic for slot simulation.
+        /// </summary>
+        /// <param name="sender"></param>
         private void AdvanceTrial(Button sender)
         {
             switch(stage)
@@ -431,6 +438,46 @@ namespace Gambling_Task
                 MenuConfig.Enabled = true;
                 MenuFile.Enabled = true;
                 UpdateLooks();
+            }
+        }
+
+        /// <summary>
+        /// Saves or loads a binary file containing serialized PhaseConfig object. 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="saveMode"></param>
+        public void PhaseFileIO(string path, bool saveMode)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream;
+            if (saveMode)
+            {
+                stream = new FileStream(path, FileMode.Create, FileAccess.Write);
+                formatter.Serialize(stream, Phase);
+            }
+            else
+            {
+                stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+                Phase = (PhaseConfig)formatter.Deserialize(stream);
+            }
+            stream.Close();
+        }
+
+        private void savePhaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(SaveDialog.ShowDialog() == DialogResult.OK)
+            {
+                PhaseFileIO(SaveDialog.FileName, true);
+                MessageBox.Show("File saved.");
+            }
+        }
+
+        private void MenuFileLoad_Click(object sender, EventArgs e)
+        {
+            if(OpenDialog.ShowDialog() == DialogResult.OK)
+            {
+                PhaseFileIO(OpenDialog.FileName, false);
+                MessageBox.Show("File loaded.");
             }
         }
     }

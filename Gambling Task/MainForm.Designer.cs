@@ -49,6 +49,9 @@
             this.CenterButton = new System.Windows.Forms.Button();
             this.StartTimer = new System.Windows.Forms.Timer(this.components);
             this.TimeoutTimer = new System.Windows.Forms.Timer(this.components);
+            this.savePhaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenDialog = new System.Windows.Forms.OpenFileDialog();
+            this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +73,7 @@
             // 
             this.MenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuFileNew,
+            this.savePhaseToolStripMenuItem,
             this.MenuFileLoad});
             this.MenuFile.Name = "MenuFile";
             this.MenuFile.Size = new System.Drawing.Size(44, 24);
@@ -78,15 +82,16 @@
             // MenuFileNew
             // 
             this.MenuFileNew.Name = "MenuFileNew";
-            this.MenuFileNew.Size = new System.Drawing.Size(159, 26);
+            this.MenuFileNew.Size = new System.Drawing.Size(216, 26);
             this.MenuFileNew.Text = "New Phase";
             this.MenuFileNew.Click += new System.EventHandler(this.OpenPhaseConfig);
             // 
             // MenuFileLoad
             // 
             this.MenuFileLoad.Name = "MenuFileLoad";
-            this.MenuFileLoad.Size = new System.Drawing.Size(159, 26);
+            this.MenuFileLoad.Size = new System.Drawing.Size(216, 26);
             this.MenuFileLoad.Text = "Load Phase";
+            this.MenuFileLoad.Click += new System.EventHandler(this.MenuFileLoad_Click);
             // 
             // MenuConfig
             // 
@@ -243,6 +248,21 @@
             this.TimeoutTimer.Interval = 1000;
             this.TimeoutTimer.Tick += new System.EventHandler(this.TimeoutTimer_Tick);
             // 
+            // savePhaseToolStripMenuItem
+            // 
+            this.savePhaseToolStripMenuItem.Name = "savePhaseToolStripMenuItem";
+            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.savePhaseToolStripMenuItem.Text = "Save Phase";
+            this.savePhaseToolStripMenuItem.Click += new System.EventHandler(this.savePhaseToolStripMenuItem_Click);
+            // 
+            // OpenDialog
+            // 
+            this.OpenDialog.AddExtension = false;
+            // 
+            // SaveDialog
+            // 
+            this.SaveDialog.AddExtension = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -291,6 +311,9 @@
         private System.Windows.Forms.ToolStripMenuItem MenuActionStartStop;
         private System.Windows.Forms.Timer StartTimer;
         private System.Windows.Forms.Timer TimeoutTimer;
+        private System.Windows.Forms.ToolStripMenuItem savePhaseToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog OpenDialog;
+        private System.Windows.Forms.SaveFileDialog SaveDialog;
     }
 }
 

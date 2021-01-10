@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Gambling_Task
 {
+
     /// <summary>
     /// Data structure class containing the various options which define the behavior of a phase of trials.
     /// </summary>
+    [Serializable]
     public class PhaseConfig
     {
         /// <summary>

@@ -84,7 +84,7 @@
             this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.SaveOption = new System.Windows.Forms.RadioButton();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.SavePathField = new System.Windows.Forms.TextBox();
             this.SaveBrowseButton = new System.Windows.Forms.Button();
             this.NoSaveOption = new System.Windows.Forms.RadioButton();
@@ -779,9 +779,15 @@
             this.SaveOption.TabStop = true;
             this.SaveOption.Text = "Save to File";
             this.SaveOption.UseVisualStyleBackColor = true;
+            this.SaveOption.CheckedChanged += new System.EventHandler(this.SaveOption_CheckedChanged);
+            // 
+            // SaveDialog
+            // 
+            this.SaveDialog.AddExtension = false;
             // 
             // SavePathField
             // 
+            this.SavePathField.Enabled = false;
             this.SavePathField.Location = new System.Drawing.Point(567, 412);
             this.SavePathField.Name = "SavePathField";
             this.SavePathField.Size = new System.Drawing.Size(269, 22);
@@ -789,12 +795,14 @@
             // 
             // SaveBrowseButton
             // 
+            this.SaveBrowseButton.Enabled = false;
             this.SaveBrowseButton.Location = new System.Drawing.Point(761, 440);
             this.SaveBrowseButton.Name = "SaveBrowseButton";
             this.SaveBrowseButton.Size = new System.Drawing.Size(75, 23);
             this.SaveBrowseButton.TabIndex = 18;
             this.SaveBrowseButton.Text = "Browse...";
             this.SaveBrowseButton.UseVisualStyleBackColor = true;
+            this.SaveBrowseButton.Click += new System.EventHandler(this.SaveBrowseButton_Click);
             // 
             // NoSaveOption
             // 
@@ -917,7 +925,7 @@
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.RadioButton SaveOption;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog SaveDialog;
         private System.Windows.Forms.TextBox SavePathField;
         private System.Windows.Forms.Button SaveBrowseButton;
         private System.Windows.Forms.RadioButton NoSaveOption;
