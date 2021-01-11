@@ -446,12 +446,14 @@ namespace Gambling_Task
                 MenuFile.Enabled = true;
                 MenuPhaseNext.Enabled = true;
                 MenuPhasePrev.Enabled = true;
+                DelayTimer.Enabled = false;
+                BlinkTimer.Enabled = false;
                 UpdateLooks();
             }
         }
 
         /// <summary>
-        /// Saves or loads a binary file containing serialized PhaseConfig object. 
+        /// Saves or loads a binary file containing serialized PhaseConfig and LooksConfig objects. 
         /// </summary>
         /// <param name="path"></param>
         /// <param name="saveMode"></param>
@@ -459,15 +461,21 @@ namespace Gambling_Task
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream;
+            object[] data;
             if (saveMode)
             {
                 stream = new FileStream(path, FileMode.Create, FileAccess.Write);
-                formatter.Serialize(stream, Phase);
+                data = new object[]{ Phase, Looks };
+                formatter.Serialize(stream, data);
             }
             else
             {
                 stream = new FileStream(path, FileMode.Open, FileAccess.Read);
-                Phase = (PhaseConfig)formatter.Deserialize(stream);
+                data = (object[])formatter.Deserialize(stream);
+                Phase = (PhaseConfig)data[0];
+                Looks = (LooksConfig)data[1];
+                UpdateEngine();
+                UpdateLooks();
             }
             stream.Close();
         }

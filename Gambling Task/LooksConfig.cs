@@ -10,6 +10,7 @@ namespace Gambling_Task
     /// <summary>
     /// Data structure class containing the various options which define the look of the main UI.
     /// </summary>
+    [Serializable]
     public class LooksConfig
     {
         /// <summary>
