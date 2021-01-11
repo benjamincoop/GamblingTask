@@ -90,6 +90,7 @@
       <DependentUpon>QueueConfigForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SlotsEngine.cs" />
+    <Compile Include="PhaseData.cs" />
     <EmbeddedResource Include="LooksConfigForm.resx">
       <DependentUpon>LooksConfigForm.cs</DependentUpon>
     </EmbeddedResource>

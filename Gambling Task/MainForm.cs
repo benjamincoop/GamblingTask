@@ -22,6 +22,7 @@ namespace Gambling_Task
 
         public PhaseConfig Phase { get; set; } // the current PhaseConfig object used in the slot simulation
         public LooksConfig Looks { get; set; } // the current LooksConfig object used by the GUI
+        public PhaseData Data { get; set; } // the current TrialData object used for data collection
         private SlotsEngine engine; // the current SlotsEngine object used in the slot simulation
         private Button[] slots; // array of references to all slots
         private Button[] buttons; // array of references to all buttons
@@ -128,6 +129,7 @@ namespace Gambling_Task
             buttons = new Button[3] { LeftButton, RightButton, CenterButton };
             Phase = new PhaseConfig(); 
             Looks = new LooksConfig();
+            Data = new PhaseData();
             CurrentPhase = 0;
             UpdateEngine();
             UpdateLooks();
@@ -187,11 +189,12 @@ namespace Gambling_Task
         }
 
         /// <summary>
-        /// Updates SlotEngine with latest PhaseConfig.
+        /// Updates SlotEngine with latest PhaseConfig and replace PhaseData object.
         /// </summary>
         private void UpdateEngine()
         {
             engine = new SlotsEngine(Phase.Slots, Phase.Schedule);
+            Data = new PhaseData();
         }
 
         /// <summary>
@@ -222,6 +225,7 @@ namespace Gambling_Task
             {
                 button.Visible = false;
             }
+            Data.ButtonsPressed.Add(button.Text);
             AdvanceTrial(button);
         }
 
@@ -283,6 +287,7 @@ namespace Gambling_Task
                 case TrialStage.Started:
                     // generate slot result
                     result = engine.Roll();
+                    Data.SlotOutcomes.Add(result);
 
                     // count slots to be pressed
                     numSlots = 0;
@@ -375,10 +380,25 @@ namespace Gambling_Task
 
                 case TrialStage.WaitingForCollectButton:
                     UpdateLooks();
-                    // fail state
-                    if(sender == buttons[Phase.TimeoutButton] & SlotsEngine.CheckRoll(result) == false)
+                    Data.NumTrials++;
+                    bool success = SlotsEngine.CheckRoll(result);
+                    int progress;
+                    if(success)
                     {
-                        stage = TrialStage.TimeoutDelay;
+                        Data.NumSuccessStates++;
+                    }
+                    // fail state
+                    if (sender == buttons[Phase.TimeoutButton] & success == false)
+                    {
+                        Data.NumIncorrect++;
+                        progress = CheckProgressCond();
+                        if(progress != 0)
+                        {
+                            PhaseTransition(progress);
+                        } else
+                        {
+                            stage = TrialStage.TimeoutDelay;
+                        }
                         if (Phase.Timeout == 0) // check if timeout time is 0
                         {
                             DelayTimer_Tick(null, null); // invoke timer elapsed method to skip timer
@@ -392,21 +412,45 @@ namespace Gambling_Task
                     } else
                     {
                         // success state
-                        if (sender == buttons[Phase.RewardButton] & SlotsEngine.CheckRoll(result) == true)
+                        if (sender == buttons[Phase.RewardButton] & success == true)
                         {
-                            stage = TrialStage.Starting;
-
                             MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
-                            // restarting trial
-                            stage = TrialStage.Starting;
-                            AdvanceTrial(null);
+                            Data.NumCorrect++;
+                            progress = CheckProgressCond();
+                            if (progress != 0)
+                            {
+                                PhaseTransition(progress);
+                            }
+                            else
+                            {
+                                // restarting trial
+                                stage = TrialStage.Starting;
+                                AdvanceTrial(null);
+                            }
                         } else
                         {
                             // rerolling
                             if(sender == buttons[Phase.StartCond[1]] & Phase.StartCond[0] == 1)
                             {
-                                stage = TrialStage.WaitingForStartButton;
-                                AdvanceTrial(null);
+                                if (success)
+                                {
+                                    Data.NumIncorrect++;
+                                }
+                                else
+                                {
+                                    Data.NumCorrect++;
+                                }
+                                progress = CheckProgressCond();
+                                if (progress != 0)
+                                {
+                                    PhaseTransition(progress);
+                                }
+                                else
+                                {
+                                    // restarting trial
+                                    stage = TrialStage.WaitingForStartButton;
+                                    AdvanceTrial(null);
+                                }
                             }
                         }
                     }
@@ -433,6 +477,7 @@ namespace Gambling_Task
             if(stage == TrialStage.Stopped) // starting
             {
                 stage = TrialStage.Starting;
+                DataTimer.Enabled = true;
                 MenuConfig.Enabled = false;
                 MenuFile.Enabled = false;
                 MenuPhaseNext.Enabled = false;
@@ -442,6 +487,7 @@ namespace Gambling_Task
             } else // stopping
             {
                 stage = TrialStage.Stopped;
+                DataTimer.Enabled = false;
                 MenuConfig.Enabled = true;
                 MenuFile.Enabled = true;
                 MenuPhaseNext.Enabled = true;
@@ -519,6 +565,11 @@ namespace Gambling_Task
             AdvanceTrial(null);
         }
 
+        /// <summary>
+        /// Handles request for QueueConfigForm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void queueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form queueEditor = new QueueConfigForm(this);
@@ -549,7 +600,22 @@ namespace Gambling_Task
             queueEditor.Dispose();
         }
 
+        /// <summary>
+        /// Switches to next phase in queue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuPhaseNext_Click(object sender, EventArgs e)
+        {
+            NextPhase();
+        }
+
+        /// <summary>
+        /// Switches to next phase in queue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private bool NextPhase()
         {
             if (phaseQueue.Length > CurrentPhase + 1)
             {
@@ -558,13 +624,31 @@ namespace Gambling_Task
                 MessageBox.Show("Loaded next phase in queue.");
                 UpdateEngine();
                 UpdateLooks();
-            } else
+                return true;
+            }
+            else
             {
                 MessageBox.Show("End of queue reached.");
+                return false;
             }
         }
 
+        /// <summary>
+        /// Switches to the previous phase in queue.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuPhasePrev_Click(object sender, EventArgs e)
+        {
+            PrevPhase();
+        }
+
+        /// <summary>
+        /// Switches to the previous phase in queue.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private bool PrevPhase()
         {
             if (CurrentPhase > 0)
             {
@@ -573,11 +657,116 @@ namespace Gambling_Task
                 MessageBox.Show("Loaded previous phase in queue.");
                 UpdateEngine();
                 UpdateLooks();
+                return true;
             }
             else
             {
                 MessageBox.Show("Start of queue reached.");
+                return false;
             }
+        }
+
+        /// <summary>
+        /// Stops the current phase when the alloted time is up.
+        /// </summary>
+        private void CheckTrialTime()
+        {
+            if(Phase.ProgressCond[0] == 1 & (Data.Time / 60) >= Phase.ProgressCond[3])
+            {
+                MessageBox.Show("Phase timer expired.");
+                PhaseTransition(-1);
+            }
+        }
+
+        /// <summary>
+        /// Handles the transition from one active phase to the next.
+        /// </summary>
+        private void PhaseTransition(int code)
+        {
+            switch(code)
+            {
+                case 0:
+                    break;
+                case 1:
+                    MessageBox.Show("Phase completed.");
+                    MenuActionStartStop_Click(null, null);
+                    if (NextPhase())
+                    {
+                        MenuActionStartStop_Click(null, null);
+                    }
+                    break;
+                case -1:
+                    MessageBox.Show("Phase completion failed.");
+                    MenuActionStartStop_Click(null, null);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// Checks conditions to phase end/progression. Ret 0 indicates no progress, return 1 indicates progress, and return -1 indicates failure.
+        /// </summary>
+        /// <returns></returns>
+        private int CheckProgressCond()
+        {
+            if(Phase.ProgressCond[0] == 1) // check for conditions
+            {
+                if(Phase.ProgressCond[2] == 1) // success-state progress type
+                {
+                    if(Data.NumSuccessStates >= Phase.ProgressCond[1])
+                    {
+                        if (Phase.ProgressCond[4] == 1 & (int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100) < Phase.ProgressCond[5]) // optimality requirement
+                        {
+                            MessageBox.Show("Optimality threshold not met.");
+                            return -1;
+                        } else
+                        {
+                            return 1;
+                        }
+                    } else
+                    {
+                        return 0;
+                    }
+                } else
+                {
+                    if (Data.NumTrials >= Phase.ProgressCond[1])
+                    {
+                        if (Phase.ProgressCond[4] == 1 & (int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100) < Phase.ProgressCond[5]) // optimality requirement
+                        {
+                            MessageBox.Show("Optimality threshold not met.");
+                            return -1;
+                        } else
+                        {
+                            return 1;
+                        }
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            } else
+            {
+                return 0;
+            }
+        }
+
+        private void DataTimer_Tick(object sender, EventArgs e)
+        {
+            Data.Time++;
+            CheckTrialTime();
+        }
+
+        private void viewDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Trials: " + Data.NumTrials.ToString());
+            sb.AppendLine("Success States: " + Data.NumSuccessStates.ToString());
+            sb.AppendLine("Optimality %: " + ((int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100)).ToString());
+            sb.Append("Time: " + Data.Time.ToString() + " s");
+
+            MessageBox.Show(sb.ToString());
         }
     }
 }
