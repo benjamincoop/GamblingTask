@@ -14,10 +14,10 @@ namespace Gambling_Task
         private int trialCount; // The number of trials elapsed since last reward (for fixed-ratio schedule)
 
         // Mapping of possible outcomes for the various versions of the simulation.
-        private static readonly int[] oneSlotFail = { 0 };
+        private static readonly int[] zeroOrOneSlotFail = { 0 };
         private static readonly int[,] twoSlotFails = { { 0, 0 }, { 0, 1 }, { 1, 0 } };
         private static readonly int[,] threeSlotFails = { { 0, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 }, { 1, 0, 0 }, { 1, 0, 1 }, { 1, 1, 0 }, { 0, 1, 1 } };
-        private static readonly int[] oneSlotSuccess = { 1 };
+        private static readonly int[] zeroOrOneSlotSuccess = { 1 };
         private static readonly int[] twoSlotSuccess = { 1, 1 };
         private static readonly int[] threeSlotSuccess = { 1, 1, 1 };
 
@@ -91,12 +91,23 @@ namespace Gambling_Task
                         if (trialCount == schedule[1])
                         {
                             trialCount = 0;
-                            return oneSlotSuccess;
+                            return zeroOrOneSlotSuccess;
                         }
                         else
                         {
                             trialCount++;
-                            return oneSlotFail;
+                            return zeroOrOneSlotFail;
+                        }
+                    case 0:
+                        if (trialCount == schedule[1])
+                        {
+                            trialCount = 0;
+                            return zeroOrOneSlotSuccess;
+                        }
+                        else
+                        {
+                            trialCount++;
+                            return zeroOrOneSlotFail;
                         }
                 }
             } else // Variable-ratio
@@ -112,7 +123,9 @@ namespace Gambling_Task
                         case 2:
                             return twoSlotSuccess;
                         case 1:
-                            return oneSlotSuccess;
+                            return zeroOrOneSlotSuccess;
+                        case 0:
+                            return zeroOrOneSlotSuccess;
                     }
                 } else // fail
                 {
@@ -125,7 +138,9 @@ namespace Gambling_Task
                             int y = rand.Next(0, 3);
                             return new int[] { twoSlotFails[y, 0], twoSlotFails[y, 1] };
                         case 1:
-                            return oneSlotFail;
+                            return zeroOrOneSlotFail;
+                        case 0:
+                            return zeroOrOneSlotFail;
                     }
                 }
             }

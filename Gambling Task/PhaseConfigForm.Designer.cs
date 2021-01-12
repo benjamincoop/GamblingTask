@@ -66,7 +66,7 @@
             this.StartAutomaticDelay = new System.Windows.Forms.NumericUpDown();
             this.StartAutomatic = new System.Windows.Forms.RadioButton();
             this.ProgressGroupBox = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.ProgressRateLabel = new System.Windows.Forms.Label();
             this.ProgressOptimalPercent = new System.Windows.Forms.NumericUpDown();
             this.ProgressRequireOptimal = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -76,11 +76,6 @@
             this.ProgressNever = new System.Windows.Forms.RadioButton();
             this.ProgressConditional = new System.Windows.Forms.RadioButton();
             this.ProgressTrialCount = new System.Windows.Forms.NumericUpDown();
-            this.DataGroupBox = new System.Windows.Forms.GroupBox();
-            this.DataTrialOutcome = new System.Windows.Forms.CheckBox();
-            this.DataSubstageTime = new System.Windows.Forms.CheckBox();
-            this.DataTrialTime = new System.Windows.Forms.CheckBox();
-            this.DataSlotOutcome = new System.Windows.Forms.CheckBox();
             this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.SlotsGroupBox.SuspendLayout();
@@ -98,7 +93,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ProgressOptimalPercent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProgressTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProgressTrialCount)).BeginInit();
-            this.DataGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SlotsGroupBox
@@ -124,6 +118,7 @@
             this.RightSlot.TabIndex = 7;
             this.RightSlot.Text = "Right";
             this.RightSlot.UseVisualStyleBackColor = true;
+            this.RightSlot.CheckedChanged += new System.EventHandler(this.SlotsCheckChanged);
             // 
             // CenterSlot
             // 
@@ -136,6 +131,7 @@
             this.CenterSlot.TabIndex = 6;
             this.CenterSlot.Text = "Center";
             this.CenterSlot.UseVisualStyleBackColor = true;
+            this.CenterSlot.CheckedChanged += new System.EventHandler(this.SlotsCheckChanged);
             // 
             // LeftSlot
             // 
@@ -148,6 +144,7 @@
             this.LeftSlot.TabIndex = 5;
             this.LeftSlot.Text = "Left";
             this.LeftSlot.UseVisualStyleBackColor = true;
+            this.LeftSlot.CheckedChanged += new System.EventHandler(this.SlotsCheckChanged);
             // 
             // RewardGroupBox
             // 
@@ -239,9 +236,9 @@
             this.TimeoutGroupBox.Controls.Add(this.label7);
             this.TimeoutGroupBox.Controls.Add(this.TimeoutAmount);
             this.TimeoutGroupBox.Controls.Add(this.label8);
-            this.TimeoutGroupBox.Location = new System.Drawing.Point(12, 397);
+            this.TimeoutGroupBox.Location = new System.Drawing.Point(394, 273);
             this.TimeoutGroupBox.Name = "TimeoutGroupBox";
-            this.TimeoutGroupBox.Size = new System.Drawing.Size(376, 118);
+            this.TimeoutGroupBox.Size = new System.Drawing.Size(516, 118);
             this.TimeoutGroupBox.TabIndex = 9;
             this.TimeoutGroupBox.TabStop = false;
             this.TimeoutGroupBox.Text = "Timeout Conditions";
@@ -546,7 +543,7 @@
             // 
             // ProgressGroupBox
             // 
-            this.ProgressGroupBox.Controls.Add(this.label16);
+            this.ProgressGroupBox.Controls.Add(this.ProgressRateLabel);
             this.ProgressGroupBox.Controls.Add(this.ProgressOptimalPercent);
             this.ProgressGroupBox.Controls.Add(this.ProgressRequireOptimal);
             this.ProgressGroupBox.Controls.Add(this.label2);
@@ -563,14 +560,14 @@
             this.ProgressGroupBox.TabStop = false;
             this.ProgressGroupBox.Text = "Phase Progression";
             // 
-            // label16
+            // ProgressRateLabel
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(219, 76);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(215, 17);
-            this.label16.TabIndex = 24;
-            this.label16.Text = "% or better optimal strategy rate.";
+            this.ProgressRateLabel.AutoSize = true;
+            this.ProgressRateLabel.Location = new System.Drawing.Point(219, 76);
+            this.ProgressRateLabel.Name = "ProgressRateLabel";
+            this.ProgressRateLabel.Size = new System.Drawing.Size(215, 17);
+            this.ProgressRateLabel.TabIndex = 24;
+            this.ProgressRateLabel.Text = "% or better optimal strategy rate.";
             // 
             // ProgressOptimalPercent
             // 
@@ -686,67 +683,10 @@
             0,
             0});
             // 
-            // DataGroupBox
-            // 
-            this.DataGroupBox.Controls.Add(this.DataTrialOutcome);
-            this.DataGroupBox.Controls.Add(this.DataSubstageTime);
-            this.DataGroupBox.Controls.Add(this.DataTrialTime);
-            this.DataGroupBox.Controls.Add(this.DataSlotOutcome);
-            this.DataGroupBox.Location = new System.Drawing.Point(394, 273);
-            this.DataGroupBox.Name = "DataGroupBox";
-            this.DataGroupBox.Size = new System.Drawing.Size(516, 129);
-            this.DataGroupBox.TabIndex = 13;
-            this.DataGroupBox.TabStop = false;
-            this.DataGroupBox.Text = "Data Collection";
-            // 
-            // DataTrialOutcome
-            // 
-            this.DataTrialOutcome.AutoSize = true;
-            this.DataTrialOutcome.Checked = true;
-            this.DataTrialOutcome.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.DataTrialOutcome.Location = new System.Drawing.Point(6, 48);
-            this.DataTrialOutcome.Name = "DataTrialOutcome";
-            this.DataTrialOutcome.Size = new System.Drawing.Size(285, 21);
-            this.DataTrialOutcome.TabIndex = 4;
-            this.DataTrialOutcome.Text = "Trial Outcome (reward, timeout, nothing)";
-            this.DataTrialOutcome.UseVisualStyleBackColor = true;
-            // 
-            // DataSubstageTime
-            // 
-            this.DataSubstageTime.AutoSize = true;
-            this.DataSubstageTime.Location = new System.Drawing.Point(6, 102);
-            this.DataSubstageTime.Name = "DataSubstageTime";
-            this.DataSubstageTime.Size = new System.Drawing.Size(222, 21);
-            this.DataSubstageTime.TabIndex = 2;
-            this.DataSubstageTime.Text = "Substage Durations (seconds)";
-            this.DataSubstageTime.UseVisualStyleBackColor = true;
-            // 
-            // DataTrialTime
-            // 
-            this.DataTrialTime.AutoSize = true;
-            this.DataTrialTime.Location = new System.Drawing.Point(6, 75);
-            this.DataTrialTime.Name = "DataTrialTime";
-            this.DataTrialTime.Size = new System.Drawing.Size(190, 21);
-            this.DataTrialTime.TabIndex = 1;
-            this.DataTrialTime.Text = "Trial Durations (seconds)";
-            this.DataTrialTime.UseVisualStyleBackColor = true;
-            // 
-            // DataSlotOutcome
-            // 
-            this.DataSlotOutcome.AutoSize = true;
-            this.DataSlotOutcome.Checked = true;
-            this.DataSlotOutcome.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.DataSlotOutcome.Location = new System.Drawing.Point(6, 21);
-            this.DataSlotOutcome.Name = "DataSlotOutcome";
-            this.DataSlotOutcome.Size = new System.Drawing.Size(153, 21);
-            this.DataSlotOutcome.TabIndex = 0;
-            this.DataSlotOutcome.Text = "Slots Outcome (i,i,i)";
-            this.DataSlotOutcome.UseVisualStyleBackColor = true;
-            // 
             // OKButton
             // 
             this.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.OKButton.Location = new System.Drawing.Point(842, 492);
+            this.OKButton.Location = new System.Drawing.Point(835, 405);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 14;
@@ -757,7 +697,7 @@
             // CancelButton
             // 
             this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(761, 492);
+            this.CancelButton.Location = new System.Drawing.Point(754, 405);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 15;
@@ -769,10 +709,9 @@
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 521);
+            this.ClientSize = new System.Drawing.Size(922, 440);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.OKButton);
-            this.Controls.Add(this.DataGroupBox);
             this.Controls.Add(this.ProgressGroupBox);
             this.Controls.Add(this.StartGroupBox);
             this.Controls.Add(this.ScheduleGroupBox);
@@ -809,8 +748,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ProgressOptimalPercent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProgressTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProgressTrialCount)).EndInit();
-            this.DataGroupBox.ResumeLayout(false);
-            this.DataGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -854,7 +791,7 @@
         private System.Windows.Forms.NumericUpDown StartAutomaticDelay;
         private System.Windows.Forms.RadioButton StartAutomatic;
         private System.Windows.Forms.GroupBox ProgressGroupBox;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label ProgressRateLabel;
         private System.Windows.Forms.NumericUpDown ProgressOptimalPercent;
         private System.Windows.Forms.CheckBox ProgressRequireOptimal;
         private System.Windows.Forms.Label label2;
@@ -864,12 +801,7 @@
         private System.Windows.Forms.RadioButton ProgressNever;
         private System.Windows.Forms.RadioButton ProgressConditional;
         private System.Windows.Forms.NumericUpDown ProgressTrialCount;
-        private System.Windows.Forms.GroupBox DataGroupBox;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.CheckBox DataTrialOutcome;
-        private System.Windows.Forms.CheckBox DataSubstageTime;
-        private System.Windows.Forms.CheckBox DataTrialTime;
-        private System.Windows.Forms.CheckBox DataSlotOutcome;
     }
 }

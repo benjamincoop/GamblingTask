@@ -601,7 +601,7 @@ namespace Gambling_Task
         }
 
         /// <summary>
-        /// Switches to next phase in queue
+        /// Handles next phase menu button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -634,7 +634,7 @@ namespace Gambling_Task
         }
 
         /// <summary>
-        /// Switches to the previous phase in queue.
+        /// Handles previous phase menu button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -763,7 +763,13 @@ namespace Gambling_Task
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Trials: " + Data.NumTrials.ToString());
             sb.AppendLine("Success States: " + Data.NumSuccessStates.ToString());
-            sb.AppendLine("Optimality %: " + ((int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100)).ToString());
+            if(Phase.ProgressCond[4] == 1)
+            {
+                sb.AppendLine("Optimality %: " + ((int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100)).ToString());
+            } else
+            {
+                sb.AppendLine("Optimality %: n/a");
+            }
             sb.Append("Time: " + Data.Time.ToString() + " s");
 
             MessageBox.Show(sb.ToString());

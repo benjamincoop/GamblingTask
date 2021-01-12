@@ -240,5 +240,28 @@ namespace Gambling_Task
             }
             return new PhaseConfig(slots, schedule, rewardAmount, rewardButton, timeout, timeoutButton, startCond, progressCond);
         }
+
+        /// <summary>
+        /// If no slots are enabled, it doesn't make sense to track optimality (since the subject will only have one choice of button at the end of each trial)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SlotsCheckChanged(object sender, EventArgs e)
+        {
+            foreach(CheckBox slot in SlotsGroupBox.Controls)
+            {
+                if(slot.Checked)
+                {
+                    ProgressRequireOptimal.Enabled = true;
+                    ProgressOptimalPercent.Enabled = true;
+                    ProgressRateLabel.Enabled = true;
+                    return;
+                }
+            }
+            ProgressRequireOptimal.Checked = false;
+            ProgressRequireOptimal.Enabled = false;
+            ProgressOptimalPercent.Enabled = false;
+            ProgressRateLabel.Enabled = false;
+        }
     }
 }
