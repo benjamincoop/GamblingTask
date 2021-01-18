@@ -21,3 +21,16 @@ C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling Task.p
 C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling_Task.LooksConfigForm.resources
 C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling_Task.PhaseConfigForm.resources
 C:\Users\nebab\source\repos\GamblingTask\Gambling Task\obj\Debug\Gambling_Task.QueueConfigForm.resources
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\bin\Debug\Gambling Task.exe.config
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\bin\Debug\Gambling Task.exe
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\bin\Debug\Gambling Task.pdb
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling Task.csprojAssemblyReference.cache
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling_Task.LooksConfigForm.resources
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling_Task.MainForm.resources
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling_Task.PhaseConfigForm.resources
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling_Task.Properties.Resources.resources
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling_Task.QueueConfigForm.resources
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling Task.csproj.GenerateResource.cache
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling Task.csproj.CoreCompileInputs.cache
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling Task.exe
+C:\Users\nebab\Source\Repos\GamblingTask2\Gambling Task\obj\Debug\Gambling Task.pdb

@@ -246,7 +246,7 @@ namespace Gambling_Task
         /// <param name="sender"></param>
         private void AdvanceTrial(Button sender)
         {
-            switch(stage)
+            switch (stage)
             {
                 case TrialStage.Starting:
                     // check start conditions
@@ -254,7 +254,7 @@ namespace Gambling_Task
                     {
                         // start pretrial delay timer
                         stage = TrialStage.PreTrialDelay;
-                        if(Phase.StartCond[1] == 0) // check if delay time is 0
+                        if (Phase.StartCond[1] == 0) // check if delay time is 0
                         {
                             DelayTimer_Tick(null, null); // invoke timer elapsed method to skip timer
                         } else
@@ -313,9 +313,9 @@ namespace Gambling_Task
                     {
                         // enable first slot
                         stage = TrialStage.WaitingForSlot;
-                        for(int i=0; i<3; i++)
+                        for (int i = 0; i < 3; i++)
                         {
-                            if(Phase.Slots[i])
+                            if (Phase.Slots[i])
                             {
                                 activeSlot = i;
                                 slots[activeSlot].Enabled = true;
@@ -332,7 +332,7 @@ namespace Gambling_Task
                 case TrialStage.WaitingForSlot:
                     // set slot color
                     numSlots--;
-                    if(result[numSlots] == 1)
+                    if (result[numSlots] == 1)
                     {
                         sender.BackColor = Looks.SlotsFGColor;
                     } else
@@ -345,7 +345,7 @@ namespace Gambling_Task
                     {
                         stage = TrialStage.WaitingForCollectButton;
 
-                        if(Phase.StartCond[0] == 1)
+                        if (Phase.StartCond[0] == 1)
                         {
                             // enable roll button
                             buttons[Phase.StartCond[1]].Enabled = true;
@@ -365,9 +365,9 @@ namespace Gambling_Task
                     } else
                     {
                         // enable next slot
-                        for(int i=activeSlot+1; i<3; i++)
+                        for (int i = activeSlot + 1; i < 3; i++)
                         {
-                            if(Phase.Slots[i])
+                            if (Phase.Slots[i])
                             {
                                 activeSlot = i;
                                 slots[activeSlot].Enabled = true;
@@ -383,37 +383,67 @@ namespace Gambling_Task
                     Data.NumTrials++;
                     bool success = SlotsEngine.CheckRoll(result);
                     int progress;
-                    if(success)
+                    if (success)
                     {
                         Data.NumSuccessStates++;
                     }
-                    // fail state
-                    if (sender == buttons[Phase.TimeoutButton] & success == false)
+
+                    // handle reroll button first
+                    if (sender == buttons[Phase.StartCond[1]] & Phase.StartCond[0] == 1)
                     {
-                        Data.NumIncorrect++;
-                        progress = CheckProgressCond();
-                        if(progress != 0)
+                        if (success)
                         {
-                            PhaseTransition(progress);
-                        } else
-                        {
-                            stage = TrialStage.TimeoutDelay;
-                        }
-                        if (Phase.Timeout == 0) // check if timeout time is 0
-                        {
-                            DelayTimer_Tick(null, null); // invoke timer elapsed method to skip timer
+                            Data.NumIncorrect++;
                         }
                         else
                         {
-                            // set and start timer.
-                            DelayTimer.Interval = Phase.Timeout * 1000;
-                            DelayTimer.Enabled = true;
+                            Data.NumCorrect++;
                         }
-                    } else
-                    {
-                        // success state
-                        if (sender == buttons[Phase.RewardButton] & success == true)
+                        progress = CheckProgressCond();
+                        if (progress != 0)
                         {
+                            PhaseTransition(progress);
+                        }
+                        else
+                        {
+                            // restarting trial
+                            stage = TrialStage.WaitingForStartButton;
+                            AdvanceTrial(null);
+                        }
+                        break;
+                    }
+
+                    // special cases when timeout and reward buttons are different
+                    if (Phase.TimeoutButton != Phase.RewardButton)
+                    {
+                        if ((sender == buttons[Phase.RewardButton] & success == false) | (sender == buttons[Phase.TimeoutButton] & success == true))
+                        {
+                            // trigger timeout
+                            Data.NumIncorrect++;
+                            progress = CheckProgressCond();
+                            if (progress != 0)
+                            {
+                                PhaseTransition(progress);
+                            }
+                            else
+                            {
+                                stage = TrialStage.TimeoutDelay;
+                            }
+                            if (Phase.Timeout == 0) // check if timeout time is 0
+                            {
+                                DelayTimer_Tick(null, null); // invoke timer elapsed method to skip timer
+                            }
+                            else
+                            {
+                                // set and start timer.
+                                DelayTimer.Interval = Phase.Timeout * 1000;
+                                DelayTimer.Enabled = true;
+                            }
+                            break;
+                        }
+                        if ((sender == buttons[Phase.TimeoutButton] & success == false) | (sender == buttons[Phase.RewardButton] & success == true))
+                        {
+                            // dispense reward
                             MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
                             Data.NumCorrect++;
                             progress = CheckProgressCond();
@@ -427,19 +457,44 @@ namespace Gambling_Task
                                 stage = TrialStage.Starting;
                                 AdvanceTrial(null);
                             }
-                        } else
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // base cases
+                        if (sender == buttons[Phase.TimeoutButton] & success == false)
                         {
-                            // rerolling
-                            if(sender == buttons[Phase.StartCond[1]] & Phase.StartCond[0] == 1)
+                            // trigger timeout
+                            Data.NumIncorrect++;
+                            progress = CheckProgressCond();
+                            if (progress != 0)
                             {
-                                if (success)
-                                {
-                                    Data.NumIncorrect++;
-                                }
-                                else
-                                {
-                                    Data.NumCorrect++;
-                                }
+                                PhaseTransition(progress);
+                            }
+                            else
+                            {
+                                stage = TrialStage.TimeoutDelay;
+                            }
+                            if (Phase.Timeout == 0) // check if timeout time is 0
+                            {
+                                DelayTimer_Tick(null, null); // invoke timer elapsed method to skip timer
+                            }
+                            else
+                            {
+                                // set and start timer.
+                                DelayTimer.Interval = Phase.Timeout * 1000;
+                                DelayTimer.Enabled = true;
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            if (sender == buttons[Phase.RewardButton] & success == true)
+                            {
+                                // dispense reward
+                                MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
+                                Data.NumCorrect++;
                                 progress = CheckProgressCond();
                                 if (progress != 0)
                                 {
@@ -448,7 +503,7 @@ namespace Gambling_Task
                                 else
                                 {
                                     // restarting trial
-                                    stage = TrialStage.WaitingForStartButton;
+                                    stage = TrialStage.Starting;
                                     AdvanceTrial(null);
                                 }
                             }
