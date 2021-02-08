@@ -30,6 +30,8 @@ namespace Gambling_Task
         private int activeSlot = 0; // index of current slot in slots[]
         private int numSlots = 0; // the number of slots to be pressed
         private int[] result; // the outcome of the slot spin
+        private int slotsTime = 0; // the number of seconds spent in the slot stage
+        private int buttonTime = 0; // the number of seconds spent in the button stage
         private PhaseConfig[] phaseQueue = new PhaseConfig[0]; // the array of phases to iterate through.
         public int CurrentPhase { get; set; } // the index of the current phase in the phase queue.
 
@@ -129,7 +131,6 @@ namespace Gambling_Task
             buttons = new Button[3] { LeftButton, RightButton, CenterButton };
             Phase = new PhaseConfig(); 
             Looks = new LooksConfig();
-            Data = new PhaseData();
             CurrentPhase = 0;
             UpdateEngine();
             UpdateLooks();
@@ -225,7 +226,10 @@ namespace Gambling_Task
             {
                 button.Visible = false;
             }
-            Data.ButtonsPressed.Add(button.Text);
+            if(stage == TrialStage.WaitingForCollectButton)
+            {
+                Data.ButtonsPressed.Add(button.Text);
+            }           
             AdvanceTrial(button);
         }
 
@@ -379,8 +383,12 @@ namespace Gambling_Task
                     break;
 
                 case TrialStage.WaitingForCollectButton:
-                    UpdateLooks();
+                    Data.SlotsTime.Add(slotsTime);
+                    Data.ButtonTime.Add(buttonTime);
+                    slotsTime = 0; buttonTime = 0;
                     Data.NumTrials++;
+
+                    UpdateLooks();
                     bool success = SlotsEngine.CheckRoll(result);
                     int progress;
                     if (success)
@@ -407,6 +415,7 @@ namespace Gambling_Task
                         else
                         {
                             // restarting trial
+                            Data.TrialResults.Add("skip");
                             stage = TrialStage.WaitingForStartButton;
                             AdvanceTrial(null);
                         }
@@ -419,6 +428,7 @@ namespace Gambling_Task
                         if ((sender == buttons[Phase.RewardButton] & success == false) | (sender == buttons[Phase.TimeoutButton] & success == true))
                         {
                             // trigger timeout
+                            Data.TrialResults.Add("timeout");
                             Data.NumIncorrect++;
                             progress = CheckProgressCond();
                             if (progress != 0)
@@ -444,6 +454,7 @@ namespace Gambling_Task
                         if ((sender == buttons[Phase.TimeoutButton] & success == false) | (sender == buttons[Phase.RewardButton] & success == true))
                         {
                             // dispense reward
+                            Data.TrialResults.Add("reward");
                             MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
                             Data.NumCorrect++;
                             progress = CheckProgressCond();
@@ -466,6 +477,7 @@ namespace Gambling_Task
                         if (sender == buttons[Phase.TimeoutButton] & success == false)
                         {
                             // trigger timeout
+                            Data.TrialResults.Add("timeout");
                             Data.NumIncorrect++;
                             progress = CheckProgressCond();
                             if (progress != 0)
@@ -493,6 +505,7 @@ namespace Gambling_Task
                             if (sender == buttons[Phase.RewardButton] & success == true)
                             {
                                 // dispense reward
+                                Data.TrialResults.Add("reward");
                                 MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
                                 Data.NumCorrect++;
                                 progress = CheckProgressCond();
@@ -726,7 +739,7 @@ namespace Gambling_Task
         /// </summary>
         private void CheckTrialTime()
         {
-            if(Phase.ProgressCond[0] == 1 & (Data.Time / 60) >= Phase.ProgressCond[3])
+            if(Phase.ProgressCond[0] == 1 & (Data.PhaseTime / 60) >= Phase.ProgressCond[3])
             {
                 MessageBox.Show("Phase timer expired.");
                 PhaseTransition(-1);
@@ -809,25 +822,43 @@ namespace Gambling_Task
 
         private void DataTimer_Tick(object sender, EventArgs e)
         {
-            Data.Time++;
+            Data.PhaseTime++;
+            if(stage == TrialStage.WaitingForSlot)
+            {
+                slotsTime++;
+            } else
+            {
+                if(stage == TrialStage.WaitingForCollectButton)
+                {
+                    buttonTime++;
+                }
+            }
             CheckTrialTime();
         }
 
-        private void viewDataToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Serializes and saves phase data to path user chooses from dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExportData(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Trials: " + Data.NumTrials.ToString());
-            sb.AppendLine("Success States: " + Data.NumSuccessStates.ToString());
-            if(Phase.ProgressCond[4] == 1)
+            if (SaveDialog.ShowDialog() == DialogResult.OK)
             {
-                sb.AppendLine("Optimality %: " + ((int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100)).ToString());
-            } else
-            {
-                sb.AppendLine("Optimality %: n/a");
+                System.IO.File.WriteAllText(SaveDialog.FileName, Data.Serialize(Phase));
+                MessageBox.Show("Data exported.");
             }
-            sb.Append("Time: " + Data.Time.ToString() + " s");
-
-            MessageBox.Show(sb.ToString());
+        }
+        /// <summary>
+        /// Overload of previous method for autosaving when path is already known.
+        /// </summary>
+        /// <param name="path"></param>
+        private void ExportData(string path)
+        {
+            if (SaveDialog.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.File.WriteAllText(SaveDialog.FileName, Data.Serialize(Phase));
+            }
         }
     }
 }

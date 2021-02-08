@@ -33,7 +33,7 @@
             this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.savePhaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuFileLoad = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuConfigPhase = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuConfigUI = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,31 +77,31 @@
             this.MenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.savePhaseToolStripMenuItem,
             this.MenuFileLoad,
-            this.viewDataToolStripMenuItem});
+            this.exportDataToolStripMenuItem});
             this.MenuFile.Name = "MenuFile";
-            this.MenuFile.Size = new System.Drawing.Size(44, 24);
+            this.MenuFile.Size = new System.Drawing.Size(46, 24);
             this.MenuFile.Text = "File";
             // 
             // savePhaseToolStripMenuItem
             // 
             this.savePhaseToolStripMenuItem.Name = "savePhaseToolStripMenuItem";
-            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.savePhaseToolStripMenuItem.Text = "Save Phase";
             this.savePhaseToolStripMenuItem.Click += new System.EventHandler(this.savePhaseToolStripMenuItem_Click);
             // 
             // MenuFileLoad
             // 
             this.MenuFileLoad.Name = "MenuFileLoad";
-            this.MenuFileLoad.Size = new System.Drawing.Size(216, 26);
+            this.MenuFileLoad.Size = new System.Drawing.Size(224, 26);
             this.MenuFileLoad.Text = "Load Phase";
             this.MenuFileLoad.Click += new System.EventHandler(this.MenuFileLoad_Click);
             // 
-            // viewDataToolStripMenuItem
+            // exportDataToolStripMenuItem
             // 
-            this.viewDataToolStripMenuItem.Name = "viewDataToolStripMenuItem";
-            this.viewDataToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.viewDataToolStripMenuItem.Text = "View Data";
-            this.viewDataToolStripMenuItem.Click += new System.EventHandler(this.viewDataToolStripMenuItem_Click);
+            this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
+            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportDataToolStripMenuItem.Text = "Export Data";
+            this.exportDataToolStripMenuItem.Click += new System.EventHandler(this.ExportData);
             // 
             // MenuConfig
             // 
@@ -110,27 +110,27 @@
             this.MenuConfigUI,
             this.queueToolStripMenuItem});
             this.MenuConfig.Name = "MenuConfig";
-            this.MenuConfig.Size = new System.Drawing.Size(47, 24);
+            this.MenuConfig.Size = new System.Drawing.Size(49, 24);
             this.MenuConfig.Text = "Edit";
             // 
             // MenuConfigPhase
             // 
             this.MenuConfigPhase.Name = "MenuConfigPhase";
-            this.MenuConfigPhase.Size = new System.Drawing.Size(142, 26);
+            this.MenuConfigPhase.Size = new System.Drawing.Size(150, 26);
             this.MenuConfigPhase.Text = "Phase";
             this.MenuConfigPhase.Click += new System.EventHandler(this.OpenPhaseConfig);
             // 
             // MenuConfigUI
             // 
             this.MenuConfigUI.Name = "MenuConfigUI";
-            this.MenuConfigUI.Size = new System.Drawing.Size(142, 26);
+            this.MenuConfigUI.Size = new System.Drawing.Size(150, 26);
             this.MenuConfigUI.Text = "Interface";
             this.MenuConfigUI.Click += new System.EventHandler(this.MenuConfigUI_Click);
             // 
             // queueToolStripMenuItem
             // 
             this.queueToolStripMenuItem.Name = "queueToolStripMenuItem";
-            this.queueToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.queueToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.queueToolStripMenuItem.Text = "Queue";
             this.queueToolStripMenuItem.Click += new System.EventHandler(this.queueToolStripMenuItem_Click);
             // 
@@ -141,27 +141,27 @@
             this.MenuPhaseNext,
             this.MenuPhasePrev});
             this.MenuAction.Name = "MenuAction";
-            this.MenuAction.Size = new System.Drawing.Size(59, 24);
+            this.MenuAction.Size = new System.Drawing.Size(61, 24);
             this.MenuAction.Text = "Phase";
             // 
             // MenuPhaseStartStop
             // 
             this.MenuPhaseStartStop.Name = "MenuPhaseStartStop";
-            this.MenuPhaseStartStop.Size = new System.Drawing.Size(152, 26);
+            this.MenuPhaseStartStop.Size = new System.Drawing.Size(160, 26);
             this.MenuPhaseStartStop.Text = "Start/Stop";
             this.MenuPhaseStartStop.Click += new System.EventHandler(this.MenuActionStartStop_Click);
             // 
             // MenuPhaseNext
             // 
             this.MenuPhaseNext.Name = "MenuPhaseNext";
-            this.MenuPhaseNext.Size = new System.Drawing.Size(152, 26);
+            this.MenuPhaseNext.Size = new System.Drawing.Size(160, 26);
             this.MenuPhaseNext.Text = "Next";
             this.MenuPhaseNext.Click += new System.EventHandler(this.MenuPhaseNext_Click);
             // 
             // MenuPhasePrev
             // 
             this.MenuPhasePrev.Name = "MenuPhasePrev";
-            this.MenuPhasePrev.Size = new System.Drawing.Size(152, 26);
+            this.MenuPhasePrev.Size = new System.Drawing.Size(160, 26);
             this.MenuPhasePrev.Text = "Previous";
             this.MenuPhasePrev.Click += new System.EventHandler(this.MenuPhasePrev_Click);
             // 
@@ -169,13 +169,13 @@
             // 
             this.MenuHelp.Enabled = false;
             this.MenuHelp.Name = "MenuHelp";
-            this.MenuHelp.Size = new System.Drawing.Size(53, 24);
+            this.MenuHelp.Size = new System.Drawing.Size(55, 24);
             this.MenuHelp.Text = "Help";
             // 
             // MenuExit
             // 
             this.MenuExit.Name = "MenuExit";
-            this.MenuExit.Size = new System.Drawing.Size(45, 24);
+            this.MenuExit.Size = new System.Drawing.Size(47, 24);
             this.MenuExit.Text = "Exit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
             // 
@@ -343,7 +343,7 @@
         private System.Windows.Forms.ToolStripMenuItem MenuPhaseNext;
         private System.Windows.Forms.ToolStripMenuItem MenuPhasePrev;
         private System.Windows.Forms.Timer DataTimer;
-        private System.Windows.Forms.ToolStripMenuItem viewDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportDataToolStripMenuItem;
     }
 }
 
