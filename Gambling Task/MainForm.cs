@@ -33,6 +33,7 @@ namespace Gambling_Task
         private int slotsTime = 0; // the number of seconds spent in the slot stage
         private int buttonTime = 0; // the number of seconds spent in the button stage
         private PhaseConfig[] phaseQueue = new PhaseConfig[0]; // the array of phases to iterate through.
+        private string exportPath = "";
         public int CurrentPhase { get; set; } // the index of the current phase in the phase queue.
 
         public MainForm()
@@ -399,6 +400,7 @@ namespace Gambling_Task
                     // handle reroll button first
                     if (sender == buttons[Phase.StartCond[1]] & Phase.StartCond[0] == 1)
                     {
+                        Data.TrialResults.Add("skip");
                         if (success)
                         {
                             Data.NumIncorrect++;
@@ -415,7 +417,6 @@ namespace Gambling_Task
                         else
                         {
                             // restarting trial
-                            Data.TrialResults.Add("skip");
                             stage = TrialStage.WaitingForStartButton;
                             AdvanceTrial(null);
                         }
@@ -751,6 +752,10 @@ namespace Gambling_Task
         /// </summary>
         private void PhaseTransition(int code)
         {
+            if(exportPath != "")
+            {
+                ExportData(exportPath);
+            }
             switch(code)
             {
                 case 0:
@@ -845,8 +850,15 @@ namespace Gambling_Task
         {
             if (SaveDialog.ShowDialog() == DialogResult.OK)
             {
-                System.IO.File.WriteAllText(SaveDialog.FileName, Data.Serialize(Phase));
-                MessageBox.Show("Data exported.");
+                exportPath = SaveDialog.FileName;
+                if(Data.NumTrials > 0)
+                {
+                    System.IO.File.AppendAllText(exportPath, Data.Serialize(Phase));
+                    MessageBox.Show("Data exported.");
+                } else
+                {
+                    MessageBox.Show("Export path set.");
+                }
             }
         }
         /// <summary>
@@ -855,10 +867,8 @@ namespace Gambling_Task
         /// <param name="path"></param>
         private void ExportData(string path)
         {
-            if (SaveDialog.ShowDialog() == DialogResult.OK)
-            {
-                System.IO.File.WriteAllText(SaveDialog.FileName, Data.Serialize(Phase));
-            }
+            string data = "\n// PHASE " + CurrentPhase + " //\n\n" + Data.Serialize(Phase);
+            System.IO.File.AppendAllText(path, data);
         }
     }
 }

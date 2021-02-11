@@ -41,6 +41,7 @@ namespace Gambling_Task
         public string Serialize(PhaseConfig config)
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("SlotValues,SlotsSeconds,ButtonPresses,ButtonSeconds,ReinforcementType");
             for (int t = 0; t < NumTrials; t++)
             {
                 sb.AppendLine(
