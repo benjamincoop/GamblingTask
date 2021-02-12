@@ -44,6 +44,13 @@
             this.MenuPhasePrev = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dispenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.LeftButton = new System.Windows.Forms.Button();
             this.RightButton = new System.Windows.Forms.Button();
             this.Slot1 = new System.Windows.Forms.Button();
@@ -66,7 +73,8 @@
             this.MenuConfig,
             this.MenuAction,
             this.MenuHelp,
-            this.MenuExit});
+            this.MenuExit,
+            this.testToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Size = new System.Drawing.Size(2176, 28);
@@ -85,21 +93,21 @@
             // savePhaseToolStripMenuItem
             // 
             this.savePhaseToolStripMenuItem.Name = "savePhaseToolStripMenuItem";
-            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.savePhaseToolStripMenuItem.Text = "Save Phase";
             this.savePhaseToolStripMenuItem.Click += new System.EventHandler(this.savePhaseToolStripMenuItem_Click);
             // 
             // MenuFileLoad
             // 
             this.MenuFileLoad.Name = "MenuFileLoad";
-            this.MenuFileLoad.Size = new System.Drawing.Size(224, 26);
+            this.MenuFileLoad.Size = new System.Drawing.Size(171, 26);
             this.MenuFileLoad.Text = "Load Phase";
             this.MenuFileLoad.Click += new System.EventHandler(this.MenuFileLoad_Click);
             // 
             // exportDataToolStripMenuItem
             // 
             this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
-            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.exportDataToolStripMenuItem.Text = "Export Data";
             this.exportDataToolStripMenuItem.Click += new System.EventHandler(this.ExportData);
             // 
@@ -178,6 +186,61 @@
             this.MenuExit.Size = new System.Drawing.Size(47, 24);
             this.MenuExit.Text = "Exit";
             this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dispenseToolStripMenuItem});
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.testToolStripMenuItem.Text = "Test";
+            // 
+            // dispenseToolStripMenuItem
+            // 
+            this.dispenseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem6});
+            this.dispenseToolStripMenuItem.Name = "dispenseToolStripMenuItem";
+            this.dispenseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.dispenseToolStripMenuItem.Text = "Dispense...";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem2.Text = "1";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.TestDispense);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem3.Text = "5";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.TestDispense);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem4.Text = "10";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.TestDispense);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem5.Text = "50";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.TestDispense);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem6.Text = "100";
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.TestDispense);
             // 
             // LeftButton
             // 
@@ -344,6 +407,13 @@
         private System.Windows.Forms.ToolStripMenuItem MenuPhasePrev;
         private System.Windows.Forms.Timer DataTimer;
         private System.Windows.Forms.ToolStripMenuItem exportDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dispenseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
     }
 }
 

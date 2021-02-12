@@ -870,5 +870,16 @@ namespace Gambling_Task
             string data = "\n// PHASE " + CurrentPhase + " //\n\n" + Data.Serialize(Phase);
             System.IO.File.AppendAllText(path, data);
         }
+
+        /// <summary>
+        /// Temporary method for testing dispenser operation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TestDispense(object sender, EventArgs e)
+        {
+            int count = int.Parse(((ToolStripMenuItem)sender).Text);
+            DispenserInterface.Dispense(count);
+        }
     }
 }
