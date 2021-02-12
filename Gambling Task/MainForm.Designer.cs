@@ -77,7 +77,7 @@
             this.testToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(2176, 28);
+            this.MenuStrip.Size = new System.Drawing.Size(1280, 28);
             this.MenuStrip.TabIndex = 0;
             // 
             // MenuFile
@@ -93,23 +93,23 @@
             // savePhaseToolStripMenuItem
             // 
             this.savePhaseToolStripMenuItem.Name = "savePhaseToolStripMenuItem";
-            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
+            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.savePhaseToolStripMenuItem.Text = "Save Phase";
-            this.savePhaseToolStripMenuItem.Click += new System.EventHandler(this.savePhaseToolStripMenuItem_Click);
+            this.savePhaseToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.savePhaseToolStripMenuItem_Click);
             // 
             // MenuFileLoad
             // 
             this.MenuFileLoad.Name = "MenuFileLoad";
-            this.MenuFileLoad.Size = new System.Drawing.Size(171, 26);
+            this.MenuFileLoad.Size = new System.Drawing.Size(224, 26);
             this.MenuFileLoad.Text = "Load Phase";
-            this.MenuFileLoad.Click += new System.EventHandler(this.MenuFileLoad_Click);
+            this.MenuFileLoad.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuFileLoad_Click);
             // 
             // exportDataToolStripMenuItem
             // 
             this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
-            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
+            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportDataToolStripMenuItem.Text = "Export Data";
-            this.exportDataToolStripMenuItem.Click += new System.EventHandler(this.ExportData);
+            this.exportDataToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ExportData);
             // 
             // MenuConfig
             // 
@@ -124,23 +124,23 @@
             // MenuConfigPhase
             // 
             this.MenuConfigPhase.Name = "MenuConfigPhase";
-            this.MenuConfigPhase.Size = new System.Drawing.Size(150, 26);
+            this.MenuConfigPhase.Size = new System.Drawing.Size(224, 26);
             this.MenuConfigPhase.Text = "Phase";
-            this.MenuConfigPhase.Click += new System.EventHandler(this.OpenPhaseConfig);
+            this.MenuConfigPhase.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OpenPhaseConfig);
             // 
             // MenuConfigUI
             // 
             this.MenuConfigUI.Name = "MenuConfigUI";
-            this.MenuConfigUI.Size = new System.Drawing.Size(150, 26);
+            this.MenuConfigUI.Size = new System.Drawing.Size(224, 26);
             this.MenuConfigUI.Text = "Interface";
-            this.MenuConfigUI.Click += new System.EventHandler(this.MenuConfigUI_Click);
+            this.MenuConfigUI.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuConfigUI_Click);
             // 
             // queueToolStripMenuItem
             // 
             this.queueToolStripMenuItem.Name = "queueToolStripMenuItem";
-            this.queueToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.queueToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.queueToolStripMenuItem.Text = "Queue";
-            this.queueToolStripMenuItem.Click += new System.EventHandler(this.queueToolStripMenuItem_Click);
+            this.queueToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.queueToolStripMenuItem_Click);
             // 
             // MenuAction
             // 
@@ -155,23 +155,23 @@
             // MenuPhaseStartStop
             // 
             this.MenuPhaseStartStop.Name = "MenuPhaseStartStop";
-            this.MenuPhaseStartStop.Size = new System.Drawing.Size(160, 26);
+            this.MenuPhaseStartStop.Size = new System.Drawing.Size(224, 26);
             this.MenuPhaseStartStop.Text = "Start/Stop";
-            this.MenuPhaseStartStop.Click += new System.EventHandler(this.MenuActionStartStop_Click);
+            this.MenuPhaseStartStop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuActionStartStop_Click);
             // 
             // MenuPhaseNext
             // 
             this.MenuPhaseNext.Name = "MenuPhaseNext";
-            this.MenuPhaseNext.Size = new System.Drawing.Size(160, 26);
+            this.MenuPhaseNext.Size = new System.Drawing.Size(224, 26);
             this.MenuPhaseNext.Text = "Next";
-            this.MenuPhaseNext.Click += new System.EventHandler(this.MenuPhaseNext_Click);
+            this.MenuPhaseNext.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuPhaseNext_Click);
             // 
             // MenuPhasePrev
             // 
             this.MenuPhasePrev.Name = "MenuPhasePrev";
-            this.MenuPhasePrev.Size = new System.Drawing.Size(160, 26);
+            this.MenuPhasePrev.Size = new System.Drawing.Size(224, 26);
             this.MenuPhasePrev.Text = "Previous";
-            this.MenuPhasePrev.Click += new System.EventHandler(this.MenuPhasePrev_Click);
+            this.MenuPhasePrev.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuPhasePrev_Click);
             // 
             // MenuHelp
             // 
@@ -185,7 +185,7 @@
             this.MenuExit.Name = "MenuExit";
             this.MenuExit.Size = new System.Drawing.Size(47, 24);
             this.MenuExit.Text = "Exit";
-            this.MenuExit.Click += new System.EventHandler(this.MenuExit_Click);
+            this.MenuExit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuExit_Click);
             // 
             // testToolStripMenuItem
             // 
@@ -251,13 +251,13 @@
             this.LeftButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LeftButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LeftButton.ForeColor = System.Drawing.Color.DimGray;
-            this.LeftButton.Location = new System.Drawing.Point(289, 916);
+            this.LeftButton.Location = new System.Drawing.Point(12, 588);
             this.LeftButton.Name = "LeftButton";
-            this.LeftButton.Size = new System.Drawing.Size(500, 169);
+            this.LeftButton.Size = new System.Drawing.Size(300, 200);
             this.LeftButton.TabIndex = 1;
             this.LeftButton.Text = "Roll";
             this.LeftButton.UseVisualStyleBackColor = false;
-            this.LeftButton.Click += new System.EventHandler(this.ButtonClick);
+            this.LeftButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonClick);
             // 
             // RightButton
             // 
@@ -268,13 +268,13 @@
             this.RightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RightButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RightButton.ForeColor = System.Drawing.Color.DimGray;
-            this.RightButton.Location = new System.Drawing.Point(1388, 916);
+            this.RightButton.Location = new System.Drawing.Point(968, 588);
             this.RightButton.Name = "RightButton";
-            this.RightButton.Size = new System.Drawing.Size(500, 169);
+            this.RightButton.Size = new System.Drawing.Size(300, 200);
             this.RightButton.TabIndex = 2;
             this.RightButton.Text = "Collect";
             this.RightButton.UseVisualStyleBackColor = false;
-            this.RightButton.Click += new System.EventHandler(this.ButtonClick);
+            this.RightButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonClick);
             // 
             // Slot1
             // 
@@ -282,36 +282,36 @@
             this.Slot1.BackColor = System.Drawing.Color.Gray;
             this.Slot1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Slot1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Slot1.Location = new System.Drawing.Point(289, 143);
+            this.Slot1.Location = new System.Drawing.Point(82, 157);
             this.Slot1.Name = "Slot1";
-            this.Slot1.Size = new System.Drawing.Size(500, 500);
+            this.Slot1.Size = new System.Drawing.Size(300, 300);
             this.Slot1.TabIndex = 3;
             this.Slot1.UseVisualStyleBackColor = false;
-            this.Slot1.Click += new System.EventHandler(this.SlotClick);
+            this.Slot1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SlotClick);
             // 
             // Slot2
             // 
             this.Slot2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Slot2.BackColor = System.Drawing.Color.Gray;
             this.Slot2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Slot2.Location = new System.Drawing.Point(842, 143);
+            this.Slot2.Location = new System.Drawing.Point(481, 157);
             this.Slot2.Name = "Slot2";
-            this.Slot2.Size = new System.Drawing.Size(500, 500);
+            this.Slot2.Size = new System.Drawing.Size(300, 300);
             this.Slot2.TabIndex = 4;
             this.Slot2.UseVisualStyleBackColor = false;
-            this.Slot2.Click += new System.EventHandler(this.SlotClick);
+            this.Slot2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SlotClick);
             // 
             // Slot3
             // 
             this.Slot3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Slot3.BackColor = System.Drawing.Color.Gray;
             this.Slot3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Slot3.Location = new System.Drawing.Point(1388, 143);
+            this.Slot3.Location = new System.Drawing.Point(884, 157);
             this.Slot3.Name = "Slot3";
-            this.Slot3.Size = new System.Drawing.Size(500, 500);
+            this.Slot3.Size = new System.Drawing.Size(300, 300);
             this.Slot3.TabIndex = 5;
             this.Slot3.UseVisualStyleBackColor = false;
-            this.Slot3.Click += new System.EventHandler(this.SlotClick);
+            this.Slot3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SlotClick);
             // 
             // BlinkTimer
             // 
@@ -327,13 +327,13 @@
             this.CenterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CenterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CenterButton.ForeColor = System.Drawing.Color.DimGray;
-            this.CenterButton.Location = new System.Drawing.Point(842, 916);
+            this.CenterButton.Location = new System.Drawing.Point(481, 588);
             this.CenterButton.Name = "CenterButton";
-            this.CenterButton.Size = new System.Drawing.Size(500, 169);
+            this.CenterButton.Size = new System.Drawing.Size(300, 200);
             this.CenterButton.TabIndex = 6;
             this.CenterButton.Text = "Other";
             this.CenterButton.UseVisualStyleBackColor = false;
-            this.CenterButton.Click += new System.EventHandler(this.ButtonClick);
+            this.CenterButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonClick);
             // 
             // DelayTimer
             // 
@@ -358,7 +358,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(2176, 1138);
+            this.ClientSize = new System.Drawing.Size(1280, 800);
             this.Controls.Add(this.CenterButton);
             this.Controls.Add(this.Slot3);
             this.Controls.Add(this.Slot2);
@@ -368,9 +368,12 @@
             this.Controls.Add(this.MenuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.MenuStrip;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gambling Task";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();

@@ -46,7 +46,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuExit_Click(object sender, EventArgs e)
+        private void MenuExit_Click(object sender, MouseEventArgs e)
         {
             Application.Exit();
         }
@@ -82,7 +82,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OpenPhaseConfig(object sender, EventArgs e)
+        private void OpenPhaseConfig(object sender, MouseEventArgs e)
         {
             Form phaseEditor = new PhaseConfigForm(this, Phase);
 
@@ -105,7 +105,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuConfigUI_Click(object sender, EventArgs e)
+        private void MenuConfigUI_Click(object sender, MouseEventArgs e)
         {
             Form looksEditor = new LooksConfigForm(this, Looks);
             DialogResult result = looksEditor.ShowDialog();
@@ -204,7 +204,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SlotClick(object sender, EventArgs e)
+        private void SlotClick(object sender, MouseEventArgs e)
         {
             // Advance trial if active slot is clicked.
             Button slot = (Button)sender;
@@ -219,7 +219,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonClick(object sender, EventArgs e)
+        private void ButtonClick(object sender, MouseEventArgs e)
         {
             Button button = (Button)sender;
             button.Enabled = false;
@@ -541,7 +541,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuActionStartStop_Click(object sender, EventArgs e)
+        private void MenuActionStartStop_Click(object sender, MouseEventArgs e)
         {
             if(stage == TrialStage.Stopped) // starting
             {
@@ -600,7 +600,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void savePhaseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void savePhaseToolStripMenuItem_Click(object sender, MouseEventArgs e)
         {
             if(SaveDialog.ShowDialog() == DialogResult.OK)
             {
@@ -614,7 +614,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuFileLoad_Click(object sender, EventArgs e)
+        private void MenuFileLoad_Click(object sender, MouseEventArgs e)
         {
             if(OpenDialog.ShowDialog() == DialogResult.OK)
             {
@@ -639,7 +639,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void queueToolStripMenuItem_Click(object sender, EventArgs e)
+        private void queueToolStripMenuItem_Click(object sender, MouseEventArgs e)
         {
             Form queueEditor = new QueueConfigForm(this);
             if (queueEditor.ShowDialog() == DialogResult.OK)
@@ -674,7 +674,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuPhaseNext_Click(object sender, EventArgs e)
+        private void MenuPhaseNext_Click(object sender, MouseEventArgs e)
         {
             NextPhase();
         }
@@ -707,7 +707,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuPhasePrev_Click(object sender, EventArgs e)
+        private void MenuPhasePrev_Click(object sender, MouseEventArgs e)
         {
             PrevPhase();
         }
@@ -846,7 +846,7 @@ namespace Gambling_Task
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ExportData(object sender, EventArgs e)
+        private void ExportData(object sender, MouseEventArgs e)
         {
             if (SaveDialog.ShowDialog() == DialogResult.OK)
             {
