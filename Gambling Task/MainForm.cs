@@ -881,5 +881,10 @@ namespace Gambling_Task
             int count = int.Parse(((ToolStripMenuItem)sender).Text);
             DispenserInterface.Dispense(count);
         }
+
+        private void MenuHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/benjamincoop/GamblingTask/wiki");
+        }
     }
 }

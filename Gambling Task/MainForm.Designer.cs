@@ -93,21 +93,21 @@
             // savePhaseToolStripMenuItem
             // 
             this.savePhaseToolStripMenuItem.Name = "savePhaseToolStripMenuItem";
-            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.savePhaseToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.savePhaseToolStripMenuItem.Text = "Save Phase";
             this.savePhaseToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.savePhaseToolStripMenuItem_Click);
             // 
             // MenuFileLoad
             // 
             this.MenuFileLoad.Name = "MenuFileLoad";
-            this.MenuFileLoad.Size = new System.Drawing.Size(224, 26);
+            this.MenuFileLoad.Size = new System.Drawing.Size(171, 26);
             this.MenuFileLoad.Text = "Load Phase";
             this.MenuFileLoad.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuFileLoad_Click);
             // 
             // exportDataToolStripMenuItem
             // 
             this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
-            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.exportDataToolStripMenuItem.Text = "Export Data";
             this.exportDataToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ExportData);
             // 
@@ -124,21 +124,21 @@
             // MenuConfigPhase
             // 
             this.MenuConfigPhase.Name = "MenuConfigPhase";
-            this.MenuConfigPhase.Size = new System.Drawing.Size(224, 26);
+            this.MenuConfigPhase.Size = new System.Drawing.Size(150, 26);
             this.MenuConfigPhase.Text = "Phase";
             this.MenuConfigPhase.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OpenPhaseConfig);
             // 
             // MenuConfigUI
             // 
             this.MenuConfigUI.Name = "MenuConfigUI";
-            this.MenuConfigUI.Size = new System.Drawing.Size(224, 26);
+            this.MenuConfigUI.Size = new System.Drawing.Size(150, 26);
             this.MenuConfigUI.Text = "Interface";
             this.MenuConfigUI.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuConfigUI_Click);
             // 
             // queueToolStripMenuItem
             // 
             this.queueToolStripMenuItem.Name = "queueToolStripMenuItem";
-            this.queueToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.queueToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.queueToolStripMenuItem.Text = "Queue";
             this.queueToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.queueToolStripMenuItem_Click);
             // 
@@ -155,30 +155,30 @@
             // MenuPhaseStartStop
             // 
             this.MenuPhaseStartStop.Name = "MenuPhaseStartStop";
-            this.MenuPhaseStartStop.Size = new System.Drawing.Size(224, 26);
+            this.MenuPhaseStartStop.Size = new System.Drawing.Size(160, 26);
             this.MenuPhaseStartStop.Text = "Start/Stop";
             this.MenuPhaseStartStop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuActionStartStop_Click);
             // 
             // MenuPhaseNext
             // 
             this.MenuPhaseNext.Name = "MenuPhaseNext";
-            this.MenuPhaseNext.Size = new System.Drawing.Size(224, 26);
+            this.MenuPhaseNext.Size = new System.Drawing.Size(160, 26);
             this.MenuPhaseNext.Text = "Next";
             this.MenuPhaseNext.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuPhaseNext_Click);
             // 
             // MenuPhasePrev
             // 
             this.MenuPhasePrev.Name = "MenuPhasePrev";
-            this.MenuPhasePrev.Size = new System.Drawing.Size(224, 26);
+            this.MenuPhasePrev.Size = new System.Drawing.Size(160, 26);
             this.MenuPhasePrev.Text = "Previous";
             this.MenuPhasePrev.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuPhasePrev_Click);
             // 
             // MenuHelp
             // 
-            this.MenuHelp.Enabled = false;
             this.MenuHelp.Name = "MenuHelp";
             this.MenuHelp.Size = new System.Drawing.Size(55, 24);
             this.MenuHelp.Text = "Help";
+            this.MenuHelp.Click += new System.EventHandler(this.MenuHelp_Click);
             // 
             // MenuExit
             // 
@@ -204,41 +204,41 @@
             this.toolStripMenuItem5,
             this.toolStripMenuItem6});
             this.dispenseToolStripMenuItem.Name = "dispenseToolStripMenuItem";
-            this.dispenseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.dispenseToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
             this.dispenseToolStripMenuItem.Text = "Dispense...";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(116, 26);
             this.toolStripMenuItem2.Text = "1";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.TestDispense);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(116, 26);
             this.toolStripMenuItem3.Text = "5";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.TestDispense);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(116, 26);
             this.toolStripMenuItem4.Text = "10";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.TestDispense);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(116, 26);
             this.toolStripMenuItem5.Text = "50";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.TestDispense);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(116, 26);
             this.toolStripMenuItem6.Text = "100";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.TestDispense);
             // 
