@@ -1,6 +1,10 @@
 import sys                
-
-if len(sys.argv) < 2:
-    print("Count argument missing. Aborting.")
-else:
-    print("Dispensing " + str(sys.argv[1]) + " pellets...")
+import time
+import board
+from adafruit_motorkit import MotorKit
+     
+kit = MotorKit(i2c=board.I2C())
+     
+for i in range(sys.argv[1]):
+    kit.stepper1.onestep()
+    time.sleep(0.01)

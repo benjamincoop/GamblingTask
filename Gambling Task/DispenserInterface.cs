@@ -12,7 +12,7 @@ namespace Gambling_Task
     {
         public static void Dispense(int amount)
         {
-            string pathToScript = "C:\\Users\\nebab\\Desktop\\Dispense.py";
+            string pathToScript = "Dispense.py";
             char[] splitter = { '\r' };
 
             Process proc = new Process();
