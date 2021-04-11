@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1321
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gambling Task", "Gambling Task\Gambling Task.csproj", "{AA710DEC-0AAB-44C2-ADB0-93DCE2C9CE9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remote Control", "Remote Control\Remote Control.csproj", "{CDCD3955-9EF5-4547-B326-C277C0D70B29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{AA710DEC-0AAB-44C2-ADB0-93DCE2C9CE9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA710DEC-0AAB-44C2-ADB0-93DCE2C9CE9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA710DEC-0AAB-44C2-ADB0-93DCE2C9CE9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDCD3955-9EF5-4547-B326-C277C0D70B29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDCD3955-9EF5-4547-B326-C277C0D70B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDCD3955-9EF5-4547-B326-C277C0D70B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDCD3955-9EF5-4547-B326-C277C0D70B29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
