@@ -22,7 +22,6 @@ namespace Remote_Control
         int index = 0;
 
         Socket socket = new TcpClient().Client;
-        byte[] buffer = new byte[64];
 
         private void ChamberSelectChanged(object sender, EventArgs e)
         {

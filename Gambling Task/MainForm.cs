@@ -38,7 +38,7 @@ namespace Gambling_Task
         private string exportPath = ""; // the external location to save data to
         private bool manualControl = false; // indicates if manual control (toolbar) is enabled.
         private Socket socket = new TcpClient().Client;
-        private byte[] buffer = new byte[64];
+        private byte[] buffer = new byte[12];
         public int CurrentPhase { get; set; } // the index of the current phase in the phase queue.
 
         public MainForm()
@@ -140,15 +140,23 @@ namespace Gambling_Task
             CurrentPhase = 0;
             UpdateEngine();
             UpdateLooks();
+
+            // attempt to connect socket
             try
             {
+                SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
+                connectArgs.Completed += ConnectCompleted;
                 socket.Bind(new IPEndPoint(IPAddress.Any, 80));
-                socket.Blocking = true;
+                socket.Blocking = false;
                 socket.Listen(1);
-                socket = socket.Accept();
+                socket.AcceptAsync(connectArgs);
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
+        }
 
+        private void ConnectCompleted(object sender, SocketAsyncEventArgs e)
+        {
+            socket = e.AcceptSocket;
             RecieveCmd();
         }
 
@@ -932,7 +940,7 @@ namespace Gambling_Task
                 try
                 {
                     SocketAsyncEventArgs recieveArgs = new SocketAsyncEventArgs();
-                    recieveArgs.SetBuffer(buffer, 0, 64);
+                    recieveArgs.SetBuffer(buffer, 0, 12);
                     recieveArgs.Completed += RecieveCompleted;
                     socket.ReceiveAsync(recieveArgs);
                 }
@@ -988,6 +996,7 @@ namespace Gambling_Task
                     MenuExit_Click(null, null);
                     break;
                 default:
+                    Console.WriteLine(cmd);
                     break;
             }
         }
