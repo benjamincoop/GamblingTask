@@ -12,3 +12,13 @@ C:\Users\nebab\Source\Repos\benjamincoop\GamblingTask\Remote Control\obj\Debug\G
 C:\Users\nebab\Source\Repos\benjamincoop\GamblingTask\Remote Control\obj\Debug\Gambling_Task.PhaseConfigForm.resources
 C:\Users\nebab\Source\Repos\benjamincoop\GamblingTask\Remote Control\obj\Debug\Gambling_Task.QueueConfigForm.resources
 C:\Users\nebab\Source\Repos\benjamincoop\GamblingTask\Remote Control\obj\Debug\Remote_Control.ControlForm.resources
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\bin\Debug\Remote Control.exe.config
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\bin\Debug\Remote Control.exe
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\bin\Debug\Remote Control.pdb
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\obj\Debug\Remote Control.csprojAssemblyReference.cache
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\obj\Debug\Remote_Control.ControlForm.resources
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\obj\Debug\Remote_Control.Properties.Resources.resources
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\obj\Debug\Remote Control.csproj.GenerateResource.cache
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\obj\Debug\Remote Control.csproj.CoreCompileInputs.cache
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\obj\Debug\Remote Control.exe
+C:\Users\nebab\Source\Repos\GamblingTask\Remote Control\obj\Debug\Remote Control.pdb
