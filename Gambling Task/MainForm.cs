@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -33,7 +35,10 @@ namespace Gambling_Task
         private int slotsTime = 0; // the number of seconds spent in the slot stage
         private int buttonTime = 0; // the number of seconds spent in the button stage
         private PhaseConfig[] phaseQueue = new PhaseConfig[0]; // the array of phases to iterate through.
-        private string exportPath = "";
+        private string exportPath = ""; // the external location to save data to
+        private bool manualControl = false; // indicates if manual control (toolbar) is enabled.
+        private Socket socket = new TcpClient().Client;
+        private byte[] buffer = new byte[64];
         public int CurrentPhase { get; set; } // the index of the current phase in the phase queue.
 
         public MainForm()
@@ -135,6 +140,16 @@ namespace Gambling_Task
             CurrentPhase = 0;
             UpdateEngine();
             UpdateLooks();
+            try
+            {
+                socket.Bind(new IPEndPoint(IPAddress.Any, 80));
+                socket.Blocking = true;
+                socket.Listen(1);
+                socket = socket.Accept();
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+            RecieveCmd();
         }
 
         /// <summary>
@@ -885,6 +900,96 @@ namespace Gambling_Task
         private void MenuHelp_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/benjamincoop/GamblingTask/wiki");
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt)
+            {
+                if(manualControl)
+                {
+                    manualControl = false;
+                    MenuStrip.Enabled = false;
+                    MenuStrip.Visible = false;
+                } else
+                {
+                    manualControl = true;
+                    MenuStrip.Enabled = true;
+                    MenuStrip.Visible = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Recieves an incoming command from the remote control program
+        /// </summary>
+        /// <returns></returns>
+        private void RecieveCmd()
+        {
+            if (socket.Connected)
+            {
+                // attempt to recieve
+                try
+                {
+                    SocketAsyncEventArgs recieveArgs = new SocketAsyncEventArgs();
+                    recieveArgs.SetBuffer(buffer, 0, 64);
+                    recieveArgs.Completed += RecieveCompleted;
+                    socket.ReceiveAsync(recieveArgs);
+                }
+                catch (Exception ex) { Console.WriteLine(ex.Message); }
+            }
+        }
+
+        private void RecieveCompleted(object sender, SocketAsyncEventArgs e)
+        {
+            if(manualControl == false)
+            {
+                ParseCmd(Encoding.UTF8.GetString(buffer));
+                RecieveCmd();
+            }
+            
+        }
+
+        /// <summary>
+        /// Maps the string commands recieved from remote to appropriate functions
+        /// </summary>
+        /// <param name="cmd"></param>
+        private void ParseCmd(string cmd)
+        {
+            switch(cmd)
+            {
+                case "load_phase":
+                    byte[] phaseBuff = new byte[2000];
+                    IFormatter formatter = new BinaryFormatter();
+
+                    // attempt to recieve and load files
+                    try
+                    {
+                        socket.Receive(phaseBuff);
+                        MemoryStream stream = new MemoryStream(phaseBuff);
+                        object[] data = (object[])formatter.Deserialize(stream);
+                        Phase = (PhaseConfig)data[0];
+                        Looks = (LooksConfig)data[1];
+                        UpdateEngine();
+                        UpdateLooks();
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message); }
+                    break;
+                case "start_stop":
+                    MenuActionStartStop_Click(null, null);
+                    break;
+                case "next_phase":
+                    MenuPhaseNext_Click(null, null);
+                    break;
+                case "prev_phase":
+                    MenuPhasePrev_Click(null, null);
+                    break;
+                case "exit":
+                    MenuExit_Click(null, null);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

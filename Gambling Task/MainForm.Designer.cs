@@ -67,6 +67,7 @@
             // 
             // MenuStrip
             // 
+            this.MenuStrip.Enabled = false;
             this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuFile,
@@ -79,6 +80,7 @@
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Size = new System.Drawing.Size(1280, 28);
             this.MenuStrip.TabIndex = 0;
+            this.MenuStrip.Visible = false;
             // 
             // MenuFile
             // 
@@ -375,6 +377,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gambling Task";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             this.ResumeLayout(false);
