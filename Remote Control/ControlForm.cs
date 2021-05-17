@@ -60,7 +60,6 @@ namespace Remote_Control
                 {
                     IPAddress address = IPAddress.Parse(IPAddresses[index]);
                     socket.Connect(address, 80);
-                    //socket.Send(Encoding.UTF8.GetBytes(cmd));
                     SocketAsyncEventArgs sendArgs = new SocketAsyncEventArgs();
                     byte[] buffer = Encoding.ASCII.GetBytes(cmd);
                     sendArgs.SetBuffer(buffer, 0, buffer.Length);
@@ -73,7 +72,6 @@ namespace Remote_Control
 
         private void SendCompleted(object sender, SocketAsyncEventArgs e)
         {
-            MessageBox.Show("Command Sent!");
         }
 
         private void SendFile(string file)
@@ -83,7 +81,7 @@ namespace Remote_Control
                 // attempt to send
                 try
                 {
-                    socket.SendFile(file);
+                    socket.SendFile(file, null, null, TransmitFileOptions.WriteBehind);
                 }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
             }

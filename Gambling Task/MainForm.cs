@@ -20,7 +20,7 @@ namespace Gambling_Task
     /// </summary>
     public partial class MainForm : Form
     {
-        enum TrialStage { Stopped, Starting, Started, PreTrialDelay, WaitingForStartButton, WaitingForSlot, WaitingForCollectButton, TimeoutDelay}
+        enum TrialStage { Stopped, Starting, Started, PreTrialDelay, WaitingForStartButton, WaitingForSlot, WaitingForCollectButton, TimeoutDelay }
 
         public PhaseConfig Phase { get; set; } // the current PhaseConfig object used in the slot simulation
         public LooksConfig Looks { get; set; } // the current LooksConfig object used by the GUI
@@ -42,6 +42,7 @@ namespace Gambling_Task
         public int CurrentPhase { get; set; } // the index of the current phase in the phase queue.
 
         private delegate void ClickDelegate(object sender, MouseEventArgs e);
+        private delegate void VoidDelegate();
 
         public MainForm()
         {
@@ -55,10 +56,11 @@ namespace Gambling_Task
         /// <param name="e"></param>
         private void MenuExit_Click(object sender, MouseEventArgs e)
         {
-            if(InvokeRequired)
+            if (InvokeRequired)
             {
                 Invoke(new ClickDelegate(MenuExit_Click), new object[] { sender, e });
-            } else
+            }
+            else
             {
                 Application.Exit();
             }
@@ -143,7 +145,7 @@ namespace Gambling_Task
         {
             slots = new Button[3] { Slot1, Slot2, Slot3 };
             buttons = new Button[3] { LeftButton, RightButton, CenterButton };
-            Phase = new PhaseConfig(); 
+            Phase = new PhaseConfig();
             Looks = new LooksConfig();
             CurrentPhase = 0;
             UpdateEngine();
@@ -173,51 +175,60 @@ namespace Gambling_Task
         /// </summary>
         private void UpdateLooks()
         {
-            BackColor = Looks.WindowBGColor;
-            LeftButton.BackColor = Looks.LeftBtnBGColor;
-            CenterButton.BackColor = Looks.CenterBtnBGColor;
-            RightButton.BackColor = Looks.RightBtnBGColor;
-            LeftButton.ForeColor = Looks.LeftBtnFGColor;
-            CenterButton.ForeColor = Looks.CenterBtnFGColor;
-            RightButton.ForeColor = Looks.RightBtnFGColor;
-            LeftButton.Text = Looks.LeftBtnLabel;
-            CenterButton.Text = Looks.CenterBtnLabel;
-            RightButton.Text = Looks.RightBtnLabel;
-
-            Slot1.BackColor = Looks.SlotsBGColor;
-            Slot2.BackColor = Looks.SlotsBGColor;
-            Slot3.BackColor = Looks.SlotsBGColor;
-
-            // disable buttons
-            LeftButton.Enabled = false;
-            CenterButton.Enabled = false;
-            RightButton.Enabled = false;
-
-            // hide slots
-            if(Looks.ActiveSlotsOnly)
+            if (InvokeRequired)
             {
-                Slot1.Visible = false;
-                Slot2.Visible = false;
-                Slot3.Visible = false;
-            } else // show slots
-            {
-                for(int i=0; i<3; i++)
-                {
-                    slots[i].Visible = Phase.Slots[i];
-                }
+                Invoke(new VoidDelegate(UpdateLooks), new object[] { });
             }
+            else
+            {
+                BackColor = Looks.WindowBGColor;
+                LeftButton.BackColor = Looks.LeftBtnBGColor;
+                CenterButton.BackColor = Looks.CenterBtnBGColor;
+                RightButton.BackColor = Looks.RightBtnBGColor;
+                LeftButton.ForeColor = Looks.LeftBtnFGColor;
+                CenterButton.ForeColor = Looks.CenterBtnFGColor;
+                RightButton.ForeColor = Looks.RightBtnFGColor;
+                LeftButton.Text = Looks.LeftBtnLabel;
+                CenterButton.Text = Looks.CenterBtnLabel;
+                RightButton.Text = Looks.RightBtnLabel;
 
-            // hide or show buttons
-            if(Looks.ActiveBtnsOnly)
-            {
-                LeftButton.Visible = false;
-                CenterButton.Visible = false;
-                RightButton.Visible = false;
-            } else
-            {
-                LeftButton.Visible = true;
-                CenterButton.Visible = true;
-                RightButton.Visible = true;
+                Slot1.BackColor = Looks.SlotsBGColor;
+                Slot2.BackColor = Looks.SlotsBGColor;
+                Slot3.BackColor = Looks.SlotsBGColor;
+
+                // disable buttons
+                LeftButton.Enabled = false;
+                CenterButton.Enabled = false;
+                RightButton.Enabled = false;
+
+                // hide slots
+                if (Looks.ActiveSlotsOnly)
+                {
+                    Slot1.Visible = false;
+                    Slot2.Visible = false;
+                    Slot3.Visible = false;
+                }
+                else // show slots
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        slots[i].Visible = Phase.Slots[i];
+                    }
+                }
+
+                // hide or show buttons
+                if (Looks.ActiveBtnsOnly)
+                {
+                    LeftButton.Visible = false;
+                    CenterButton.Visible = false;
+                    RightButton.Visible = false;
+                }
+                else
+                {
+                    LeftButton.Visible = true;
+                    CenterButton.Visible = true;
+                    RightButton.Visible = true;
+                }
             }
         }
 
@@ -226,8 +237,15 @@ namespace Gambling_Task
         /// </summary>
         private void UpdateEngine()
         {
-            engine = new SlotsEngine(Phase.Slots, Phase.Schedule);
-            Data = new PhaseData();
+            if (InvokeRequired)
+            {
+                Invoke(new VoidDelegate(UpdateEngine), new object[] { });
+            }
+            else
+            {
+                engine = new SlotsEngine(Phase.Slots, Phase.Schedule);
+                Data = new PhaseData();
+            }
         }
 
         /// <summary>
@@ -239,7 +257,7 @@ namespace Gambling_Task
         {
             // Advance trial if active slot is clicked.
             Button slot = (Button)sender;
-            if(stage == TrialStage.WaitingForSlot & slots[activeSlot] == slot)
+            if (stage == TrialStage.WaitingForSlot & slots[activeSlot] == slot)
             {
                 AdvanceTrial(slot);
             }
@@ -258,10 +276,10 @@ namespace Gambling_Task
             {
                 button.Visible = false;
             }
-            if(stage == TrialStage.WaitingForCollectButton)
+            if (stage == TrialStage.WaitingForCollectButton)
             {
                 Data.ButtonsPressed.Add(button.Text);
-            }           
+            }
             AdvanceTrial(button);
         }
 
@@ -293,13 +311,15 @@ namespace Gambling_Task
                         if (Phase.StartCond[1] == 0) // check if delay time is 0
                         {
                             DelayTimer_Tick(null, null); // invoke timer elapsed method to skip timer
-                        } else
+                        }
+                        else
                         {
                             // set and start timer.
                             DelayTimer.Interval = Phase.StartCond[1] * 1000;
                             DelayTimer.Enabled = true;
                         }
-                    } else
+                    }
+                    else
                     {
                         // start waiting for start button press
                         stage = TrialStage.WaitingForStartButton;
@@ -345,7 +365,8 @@ namespace Gambling_Task
                         // enable timeout button
                         buttons[Phase.TimeoutButton].Enabled = true;
                         buttons[Phase.TimeoutButton].Visible = true;
-                    } else
+                    }
+                    else
                     {
                         // enable first slot
                         stage = TrialStage.WaitingForSlot;
@@ -371,7 +392,8 @@ namespace Gambling_Task
                     if (result[numSlots] == 1)
                     {
                         sender.BackColor = Looks.SlotsFGColor;
-                    } else
+                    }
+                    else
                     {
                         sender.BackColor = Looks.SlotsBGColor;
                     }
@@ -398,7 +420,8 @@ namespace Gambling_Task
 
                         // stop blinking
                         BlinkTimer.Enabled = false;
-                    } else
+                    }
+                    else
                     {
                         // enable next slot
                         for (int i = activeSlot + 1; i < 3; i++)
@@ -619,7 +642,7 @@ namespace Gambling_Task
             if (saveMode)
             {
                 stream = new FileStream(path, FileMode.Create, FileAccess.Write);
-                data = new object[]{ Phase, Looks };
+                data = new object[] { Phase, Looks };
                 formatter.Serialize(stream, data);
             }
             else
@@ -641,7 +664,7 @@ namespace Gambling_Task
         /// <param name="e"></param>
         private void savePhaseToolStripMenuItem_Click(object sender, MouseEventArgs e)
         {
-            if(SaveDialog.ShowDialog() == DialogResult.OK)
+            if (SaveDialog.ShowDialog() == DialogResult.OK)
             {
                 PhaseFileIO(SaveDialog.FileName, true);
                 MessageBox.Show("File saved.");
@@ -655,7 +678,7 @@ namespace Gambling_Task
         /// <param name="e"></param>
         private void MenuFileLoad_Click(object sender, MouseEventArgs e)
         {
-            if(OpenDialog.ShowDialog() == DialogResult.OK)
+            if (OpenDialog.ShowDialog() == DialogResult.OK)
             {
                 PhaseFileIO(OpenDialog.FileName, false);
                 MessageBox.Show("File loaded.");
@@ -683,16 +706,17 @@ namespace Gambling_Task
             Form queueEditor = new QueueConfigForm(this);
             if (queueEditor.ShowDialog() == DialogResult.OK)
             {
-                if(phaseQueue.Length < CurrentPhase + 1)
+                if (phaseQueue.Length < CurrentPhase + 1)
                 {
                     Array.Resize(ref phaseQueue, CurrentPhase + 1);
                 }
-                
-                if(phaseQueue[CurrentPhase] == null)
+
+                if (phaseQueue[CurrentPhase] == null)
                 {
                     phaseQueue[CurrentPhase] = Phase;
                     MessageBox.Show("Saved configuration to selected queue position.");
-                } else
+                }
+                else
                 {
                     Phase = phaseQueue[CurrentPhase];
                     MessageBox.Show("Loaded configuration from selected queue position.");
@@ -793,7 +817,7 @@ namespace Gambling_Task
         /// </summary>
         private void CheckTrialTime()
         {
-            if(Phase.ProgressCond[0] == 1 & (Data.PhaseTime / 60) >= Phase.ProgressCond[3])
+            if (Phase.ProgressCond[0] == 1 & (Data.PhaseTime / 60) >= Phase.ProgressCond[3])
             {
                 MessageBox.Show("Phase timer expired.");
                 PhaseTransition(-1);
@@ -805,11 +829,11 @@ namespace Gambling_Task
         /// </summary>
         private void PhaseTransition(int code)
         {
-            if(exportPath != "")
+            if (exportPath != "")
             {
                 ExportData(exportPath);
             }
-            switch(code)
+            switch (code)
             {
                 case 0:
                     break;
@@ -836,33 +860,18 @@ namespace Gambling_Task
         /// <returns></returns>
         private int CheckProgressCond()
         {
-            if(Phase.ProgressCond[0] == 1) // check for conditions
+            if (Phase.ProgressCond[0] == 1) // check for conditions
             {
-                if(Phase.ProgressCond[2] == 1) // success-state progress type
+                if (Phase.ProgressCond[2] == 1) // success-state progress type
                 {
-                    if(Data.NumSuccessStates >= Phase.ProgressCond[1])
+                    if (Data.NumSuccessStates >= Phase.ProgressCond[1])
                     {
                         if (Phase.ProgressCond[4] == 1 & (int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100) < Phase.ProgressCond[5]) // optimality requirement
                         {
                             MessageBox.Show("Optimality threshold not met.");
                             return -1;
-                        } else
-                        {
-                            return 1;
                         }
-                    } else
-                    {
-                        return 0;
-                    }
-                } else
-                {
-                    if (Data.NumTrials >= Phase.ProgressCond[1])
-                    {
-                        if (Phase.ProgressCond[4] == 1 & (int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100) < Phase.ProgressCond[5]) // optimality requirement
-                        {
-                            MessageBox.Show("Optimality threshold not met.");
-                            return -1;
-                        } else
+                        else
                         {
                             return 1;
                         }
@@ -872,7 +881,27 @@ namespace Gambling_Task
                         return 0;
                     }
                 }
-            } else
+                else
+                {
+                    if (Data.NumTrials >= Phase.ProgressCond[1])
+                    {
+                        if (Phase.ProgressCond[4] == 1 & (int)Math.Round((float)Data.NumCorrect / Data.NumTrials * 100) < Phase.ProgressCond[5]) // optimality requirement
+                        {
+                            MessageBox.Show("Optimality threshold not met.");
+                            return -1;
+                        }
+                        else
+                        {
+                            return 1;
+                        }
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+            else
             {
                 return 0;
             }
@@ -881,12 +910,13 @@ namespace Gambling_Task
         private void DataTimer_Tick(object sender, EventArgs e)
         {
             Data.PhaseTime++;
-            if(stage == TrialStage.WaitingForSlot)
+            if (stage == TrialStage.WaitingForSlot)
             {
                 slotsTime++;
-            } else
+            }
+            else
             {
-                if(stage == TrialStage.WaitingForCollectButton)
+                if (stage == TrialStage.WaitingForCollectButton)
                 {
                     buttonTime++;
                 }
@@ -904,11 +934,12 @@ namespace Gambling_Task
             if (SaveDialog.ShowDialog() == DialogResult.OK)
             {
                 exportPath = SaveDialog.FileName;
-                if(Data.NumTrials > 0)
+                if (Data.NumTrials > 0)
                 {
                     System.IO.File.AppendAllText(exportPath, Data.Serialize(Phase));
                     MessageBox.Show("Data exported.");
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Export path set.");
                 }
@@ -944,12 +975,13 @@ namespace Gambling_Task
         {
             if (e.Alt)
             {
-                if(manualControl)
+                if (manualControl)
                 {
                     manualControl = false;
                     MenuStrip.Enabled = false;
                     MenuStrip.Visible = false;
-                } else
+                }
+                else
                 {
                     manualControl = true;
                     MenuStrip.Enabled = true;
@@ -980,12 +1012,12 @@ namespace Gambling_Task
 
         private void RecieveCompleted(object sender, SocketAsyncEventArgs e)
         {
-            if(manualControl == false)
+            if (manualControl == false)
             {
                 ParseCmd(Encoding.ASCII.GetString(buffer).Split('!')[0]);
                 RecieveCmd();
             }
-            
+
         }
 
         /// <summary>
@@ -994,27 +1026,37 @@ namespace Gambling_Task
         /// <param name="cmd"></param>
         private void ParseCmd(string cmd)
         {
-            switch(cmd)
+            switch (cmd)
             {
                 case "load_phase":
-                    byte[] phaseBuff = new byte[2000];
-                    IFormatter formatter = new BinaryFormatter();
-
                     // attempt to recieve and load files
-                    try
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        socket.Receive(phaseBuff);
-                        MemoryStream stream = new MemoryStream(phaseBuff);
-                        object[] data = (object[])formatter.Deserialize(stream);
+                        try
+                        {
+                            // recieve bytes (chunks of 0.5KB) and load into stream
+                            byte[] buffer = new byte[512];
+                            int bytesRead = 0;
+
+                            ms.WriteByte(0); // I don't know why I have to do this, but it seems to work
+                            while ((bytesRead = socket.Receive(buffer)) != 0)
+                            {
+                                ms.Write(buffer, 0, bytesRead);
+                            }
+                        }
+                        catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+                        // deserialize data from stream and load into program
+                        IFormatter formatter = new BinaryFormatter();
+                        object[] data;
+                        ms.Seek(0, SeekOrigin.Begin);
+                        data = (object[])formatter.Deserialize(ms);
                         Phase = (PhaseConfig)data[0];
                         Looks = (LooksConfig)data[1];
-                        Invoke((Action)delegate
-                        {
-                            UpdateEngine();
-                            UpdateLooks();
-                        });
+                        UpdateEngine();
+                        UpdateLooks();
+                        ms.Close();
                     }
-                    catch (Exception ex) { Console.WriteLine(ex.Message); }
                     break;
                 case "start_stop":
                     MenuActionStartStop_Click(null, null);
