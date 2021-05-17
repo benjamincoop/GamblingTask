@@ -44,7 +44,12 @@ namespace Remote_Control
                 // attempt to send
                 try
                 {
-                    socket.Send(Encoding.UTF8.GetBytes(cmd));
+                    //socket.Send(Encoding.UTF8.GetBytes(cmd));
+                    SocketAsyncEventArgs sendArgs = new SocketAsyncEventArgs();
+                    byte[] buffer = Encoding.ASCII.GetBytes(cmd);
+                    sendArgs.SetBuffer(buffer, 0, buffer.Length);
+                    sendArgs.Completed += SendCompleted;
+                    socket.SendAsync(sendArgs);
                 }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
             }
@@ -55,20 +60,30 @@ namespace Remote_Control
                 {
                     IPAddress address = IPAddress.Parse(IPAddresses[index]);
                     socket.Connect(address, 80);
-                    socket.Send(Encoding.UTF8.GetBytes(cmd));
+                    //socket.Send(Encoding.UTF8.GetBytes(cmd));
+                    SocketAsyncEventArgs sendArgs = new SocketAsyncEventArgs();
+                    byte[] buffer = Encoding.ASCII.GetBytes(cmd);
+                    sendArgs.SetBuffer(buffer, 0, buffer.Length);
+                    sendArgs.Completed += SendCompleted;
+                    socket.SendAsync(sendArgs);
                 }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
             }
         }
 
-        private void SendFile(byte[] file)
+        private void SendCompleted(object sender, SocketAsyncEventArgs e)
+        {
+            MessageBox.Show("Command Sent!");
+        }
+
+        private void SendFile(string file)
         {
             if (socket.Connected)
             {
                 // attempt to send
                 try
                 {
-                    socket.Send(file);
+                    socket.SendFile(file);
                 }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
             }
@@ -79,7 +94,7 @@ namespace Remote_Control
                 {
                     IPAddress address = IPAddress.Parse(IPAddresses[index]);
                     socket.Connect(address, 80);
-                    socket.Send(file);
+                    socket.SendFile(file);
                 }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
             }
@@ -94,12 +109,8 @@ namespace Remote_Control
         {
             if(OpenDialog.ShowDialog() == DialogResult.OK)
             {
-                SendCmd("load_phase");
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    OpenDialog.OpenFile().CopyTo(ms);
-                    SendFile(ms.ToArray());
-                }
+                SendCmd("load_phase!");
+                SendFile(OpenDialog.FileName);
             }      
         }
 
@@ -110,17 +121,17 @@ namespace Remote_Control
 
         private void startStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendCmd("start_stop");
+            SendCmd("start_stop!");
         }
 
         private void nextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendCmd("next_phase");
+            SendCmd("next_phase!");
         }
 
         private void previousToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendCmd("prev_phase");
+            SendCmd("prev_phase!");
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -130,7 +141,7 @@ namespace Remote_Control
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendCmd("exit");
+            SendCmd("exit!");
         }
     }
 }

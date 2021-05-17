@@ -41,6 +41,8 @@ namespace Gambling_Task
         private byte[] buffer = new byte[12];
         public int CurrentPhase { get; set; } // the index of the current phase in the phase queue.
 
+        private delegate void ClickDelegate(object sender, MouseEventArgs e);
+
         public MainForm()
         {
             InitializeComponent();
@@ -53,7 +55,13 @@ namespace Gambling_Task
         /// <param name="e"></param>
         private void MenuExit_Click(object sender, MouseEventArgs e)
         {
-            Application.Exit();
+            if(InvokeRequired)
+            {
+                Invoke(new ClickDelegate(MenuExit_Click), new object[] { sender, e });
+            } else
+            {
+                Application.Exit();
+            }
         }
 
         /// <summary>
@@ -566,27 +574,35 @@ namespace Gambling_Task
         /// <param name="e"></param>
         private void MenuActionStartStop_Click(object sender, MouseEventArgs e)
         {
-            if(stage == TrialStage.Stopped) // starting
+            if (InvokeRequired)
             {
-                stage = TrialStage.Starting;
-                DataTimer.Enabled = true;
-                MenuConfig.Enabled = false;
-                MenuFile.Enabled = false;
-                MenuPhaseNext.Enabled = false;
-                MenuPhasePrev.Enabled = false;
-                AdvanceTrial(null);
+                Invoke(new ClickDelegate(MenuActionStartStop_Click), new object[] { sender, e });
+            }
+            else
+            {
+                if (stage == TrialStage.Stopped) // starting
+                {
+                    stage = TrialStage.Starting;
+                    DataTimer.Enabled = true;
+                    MenuConfig.Enabled = false;
+                    MenuFile.Enabled = false;
+                    MenuPhaseNext.Enabled = false;
+                    MenuPhasePrev.Enabled = false;
+                    AdvanceTrial(null);
 
-            } else // stopping
-            {
-                stage = TrialStage.Stopped;
-                DataTimer.Enabled = false;
-                MenuConfig.Enabled = true;
-                MenuFile.Enabled = true;
-                MenuPhaseNext.Enabled = true;
-                MenuPhasePrev.Enabled = true;
-                DelayTimer.Enabled = false;
-                BlinkTimer.Enabled = false;
-                UpdateLooks();
+                }
+                else // stopping
+                {
+                    stage = TrialStage.Stopped;
+                    DataTimer.Enabled = false;
+                    MenuConfig.Enabled = true;
+                    MenuFile.Enabled = true;
+                    MenuPhaseNext.Enabled = true;
+                    MenuPhasePrev.Enabled = true;
+                    DelayTimer.Enabled = false;
+                    BlinkTimer.Enabled = false;
+                    UpdateLooks();
+                }
             }
         }
 
@@ -699,7 +715,14 @@ namespace Gambling_Task
         /// <param name="e"></param>
         private void MenuPhaseNext_Click(object sender, MouseEventArgs e)
         {
-            NextPhase();
+            if (InvokeRequired)
+            {
+                Invoke(new ClickDelegate(MenuPhaseNext_Click), new object[] { sender, e });
+            }
+            else
+            {
+                NextPhase();
+            }
         }
 
         /// <summary>
@@ -732,7 +755,14 @@ namespace Gambling_Task
         /// <param name="e"></param>
         private void MenuPhasePrev_Click(object sender, MouseEventArgs e)
         {
-            PrevPhase();
+            if (InvokeRequired)
+            {
+                Invoke(new ClickDelegate(MenuPhasePrev_Click), new object[] { sender, e });
+            }
+            else
+            {
+                PrevPhase();
+            }
         }
 
         /// <summary>
@@ -952,7 +982,7 @@ namespace Gambling_Task
         {
             if(manualControl == false)
             {
-                ParseCmd(Encoding.UTF8.GetString(buffer));
+                ParseCmd(Encoding.ASCII.GetString(buffer).Split('!')[0]);
                 RecieveCmd();
             }
             
@@ -978,8 +1008,11 @@ namespace Gambling_Task
                         object[] data = (object[])formatter.Deserialize(stream);
                         Phase = (PhaseConfig)data[0];
                         Looks = (LooksConfig)data[1];
-                        UpdateEngine();
-                        UpdateLooks();
+                        Invoke((Action)delegate
+                        {
+                            UpdateEngine();
+                            UpdateLooks();
+                        });
                     }
                     catch (Exception ex) { Console.WriteLine(ex.Message); }
                     break;
