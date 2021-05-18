@@ -938,6 +938,7 @@ namespace Gambling_Task
                 {
                     System.IO.File.AppendAllText(exportPath, Data.Serialize(Phase));
                     MessageBox.Show("Data exported.");
+                    Data = new PhaseData();
                 }
                 else
                 {
