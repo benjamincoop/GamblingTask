@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 
 namespace Remote_Control
 {
@@ -44,7 +45,6 @@ namespace Remote_Control
                 // attempt to send
                 try
                 {
-                    //socket.Send(Encoding.UTF8.GetBytes(cmd));
                     SocketAsyncEventArgs sendArgs = new SocketAsyncEventArgs();
                     byte[] buffer = Encoding.ASCII.GetBytes(cmd);
                     sendArgs.SetBuffer(buffer, 0, buffer.Length);
@@ -76,6 +76,7 @@ namespace Remote_Control
 
         private void SendFile(string file)
         {
+            Thread.Sleep(500); // give recieving machine a moment to catch up
             if (socket.Connected)
             {
                 // attempt to send
@@ -92,7 +93,7 @@ namespace Remote_Control
                 {
                     IPAddress address = IPAddress.Parse(IPAddresses[index]);
                     socket.Connect(address, 80);
-                    socket.SendFile(file);
+                    socket.SendFile(file, null, null, TransmitFileOptions.WriteBehind);
                 }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
             }

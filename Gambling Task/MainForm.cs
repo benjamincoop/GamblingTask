@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -1030,6 +1031,7 @@ namespace Gambling_Task
             switch (cmd)
             {
                 case "load_phase":
+                    Thread.Sleep(1000); // block for a second to resolve timing issues
                     // attempt to recieve and load files
                     using (MemoryStream ms = new MemoryStream())
                     {
@@ -1038,8 +1040,6 @@ namespace Gambling_Task
                             // recieve bytes (chunks of 0.5KB) and load into stream
                             byte[] buffer = new byte[512];
                             int bytesRead = 0;
-
-                            ms.WriteByte(0); // I don't know why I have to do this, but it seems to work
                             while ((bytesRead = socket.Receive(buffer)) != 0)
                             {
                                 ms.Write(buffer, 0, bytesRead);
