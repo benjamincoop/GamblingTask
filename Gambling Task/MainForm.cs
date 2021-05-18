@@ -485,6 +485,7 @@ namespace Gambling_Task
                         {
                             // trigger timeout
                             Data.TrialResults.Add("timeout");
+                            System.Media.SystemSounds.Hand.Play();
                             Data.NumIncorrect++;
                             progress = CheckProgressCond();
                             if (progress != 0)
@@ -511,7 +512,9 @@ namespace Gambling_Task
                         {
                             // dispense reward
                             Data.TrialResults.Add("reward");
-                            MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
+                            System.Media.SystemSounds.Beep.Play();
+                            DispenserInterface.Dispense(Phase.RewardAmount);
+                            //MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
                             Data.NumCorrect++;
                             progress = CheckProgressCond();
                             if (progress != 0)
@@ -534,6 +537,7 @@ namespace Gambling_Task
                         {
                             // trigger timeout
                             Data.TrialResults.Add("timeout");
+                            System.Media.SystemSounds.Hand.Play();
                             Data.NumIncorrect++;
                             progress = CheckProgressCond();
                             if (progress != 0)
@@ -562,7 +566,9 @@ namespace Gambling_Task
                             {
                                 // dispense reward
                                 Data.TrialResults.Add("reward");
-                                MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
+                                System.Media.SystemSounds.Beep.Play();
+                                DispenserInterface.Dispense(Phase.RewardAmount);
+                                //MessageBox.Show("Dispensed " + Phase.RewardAmount.ToString() + " pellets.");
                                 Data.NumCorrect++;
                                 progress = CheckProgressCond();
                                 if (progress != 0)
