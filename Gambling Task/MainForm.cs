@@ -1082,5 +1082,10 @@ namespace Gambling_Task
                     break;
             }
         }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Location = Point.Empty;
+        }
     }
 }

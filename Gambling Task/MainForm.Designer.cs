@@ -78,7 +78,7 @@
             this.testToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(1280, 28);
+            this.MenuStrip.Size = new System.Drawing.Size(1262, 28);
             this.MenuStrip.TabIndex = 0;
             this.MenuStrip.Visible = false;
             // 
@@ -196,6 +196,7 @@
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
             this.testToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // dispenseToolStripMenuItem
             // 
@@ -361,6 +362,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1262, 782);
+            this.ControlBox = false;
             this.Controls.Add(this.CenterButton);
             this.Controls.Add(this.Slot3);
             this.Controls.Add(this.Slot2);
@@ -369,6 +371,7 @@
             this.Controls.Add(this.LeftButton);
             this.Controls.Add(this.MenuStrip);
             this.MainMenuStrip = this.MenuStrip;
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.ShowIcon = false;
