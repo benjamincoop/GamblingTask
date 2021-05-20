@@ -151,18 +151,16 @@ namespace Gambling_Task
             CurrentPhase = 0;
             UpdateEngine();
             UpdateLooks();
-            MessageBox.Show("Mainform load");
 
             // attempt to connect socket
             try
             {
                 socket.Bind(new IPEndPoint(IPAddress.Any, 25565));
-                socket.Blocking = true;
-                socket.Listen(5);
+                socket.Blocking = false;
+                socket.Listen(1);
                 SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
                 connectArgs.Completed += ConnectCompleted;
-                //socket.AcceptAsync(connectArgs);
-                socket.Accept();
+                socket.AcceptAsync(connectArgs);
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
