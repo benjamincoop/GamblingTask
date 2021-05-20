@@ -151,6 +151,7 @@ namespace Gambling_Task
             CurrentPhase = 0;
             UpdateEngine();
             UpdateLooks();
+            MessageBox.Show("Mainform load");
 
             // attempt to connect socket
             try
