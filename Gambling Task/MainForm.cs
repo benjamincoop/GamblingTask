@@ -157,8 +157,8 @@ namespace Gambling_Task
             {
                 SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
                 connectArgs.Completed += ConnectCompleted;
-                socket.Bind(new IPEndPoint(IPAddress.Any, 80));
-                socket.Blocking = false;
+                socket.Bind(new IPEndPoint(IPAddress.Any, 25565));
+                socket.Blocking = true;
                 socket.Listen(1);
                 socket.AcceptAsync(connectArgs);
             }

@@ -59,7 +59,7 @@ namespace Remote_Control
                 try
                 {
                     IPAddress address = IPAddress.Parse(IPAddresses[index]);
-                    socket.Connect(address, 80);
+                    socket.Connect(address, 25565);
                     SocketAsyncEventArgs sendArgs = new SocketAsyncEventArgs();
                     byte[] buffer = Encoding.ASCII.GetBytes(cmd);
                     sendArgs.SetBuffer(buffer, 0, buffer.Length);
@@ -92,7 +92,7 @@ namespace Remote_Control
                 try
                 {
                     IPAddress address = IPAddress.Parse(IPAddresses[index]);
-                    socket.Connect(address, 80);
+                    socket.Connect(address, 25565);
                     socket.SendFile(file, null, null, TransmitFileOptions.WriteBehind);
                 }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
