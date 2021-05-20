@@ -253,7 +253,7 @@
             this.LeftButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LeftButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LeftButton.ForeColor = System.Drawing.Color.DimGray;
-            this.LeftButton.Location = new System.Drawing.Point(12, 788);
+            this.LeftButton.Location = new System.Drawing.Point(12, 588);
             this.LeftButton.Name = "LeftButton";
             this.LeftButton.Size = new System.Drawing.Size(300, 200);
             this.LeftButton.TabIndex = 1;
@@ -270,7 +270,7 @@
             this.RightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RightButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RightButton.ForeColor = System.Drawing.Color.DimGray;
-            this.RightButton.Location = new System.Drawing.Point(1168, 788);
+            this.RightButton.Location = new System.Drawing.Point(968, 588);
             this.RightButton.Name = "RightButton";
             this.RightButton.Size = new System.Drawing.Size(300, 200);
             this.RightButton.TabIndex = 2;
@@ -284,7 +284,7 @@
             this.Slot1.BackColor = System.Drawing.Color.Gray;
             this.Slot1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Slot1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Slot1.Location = new System.Drawing.Point(82, 357);
+            this.Slot1.Location = new System.Drawing.Point(82, 157);
             this.Slot1.Name = "Slot1";
             this.Slot1.Size = new System.Drawing.Size(300, 300);
             this.Slot1.TabIndex = 3;
@@ -296,7 +296,7 @@
             this.Slot2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Slot2.BackColor = System.Drawing.Color.Gray;
             this.Slot2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Slot2.Location = new System.Drawing.Point(581, 357);
+            this.Slot2.Location = new System.Drawing.Point(481, 157);
             this.Slot2.Name = "Slot2";
             this.Slot2.Size = new System.Drawing.Size(300, 300);
             this.Slot2.TabIndex = 4;
@@ -308,7 +308,7 @@
             this.Slot3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Slot3.BackColor = System.Drawing.Color.Gray;
             this.Slot3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Slot3.Location = new System.Drawing.Point(1084, 357);
+            this.Slot3.Location = new System.Drawing.Point(884, 157);
             this.Slot3.Name = "Slot3";
             this.Slot3.Size = new System.Drawing.Size(300, 300);
             this.Slot3.TabIndex = 5;
@@ -329,7 +329,7 @@
             this.CenterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CenterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CenterButton.ForeColor = System.Drawing.Color.DimGray;
-            this.CenterButton.Location = new System.Drawing.Point(581, 788);
+            this.CenterButton.Location = new System.Drawing.Point(481, 588);
             this.CenterButton.Name = "CenterButton";
             this.CenterButton.Size = new System.Drawing.Size(300, 200);
             this.CenterButton.TabIndex = 6;
@@ -359,8 +359,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1480, 1000);
+            this.ClientSize = new System.Drawing.Size(1280, 800);
             this.Controls.Add(this.CenterButton);
             this.Controls.Add(this.Slot3);
             this.Controls.Add(this.Slot2);
@@ -376,6 +377,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gambling Task";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MenuStrip.ResumeLayout(false);
