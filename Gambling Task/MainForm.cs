@@ -1083,9 +1083,9 @@ namespace Gambling_Task
             }
         }
 
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MainForm_Shown(object sender, EventArgs e)
         {
-            Location = Point.Empty;
+            Location = new Point(0, 0);
         }
     }
 }
