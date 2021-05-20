@@ -1082,10 +1082,5 @@ namespace Gambling_Task
                     break;
             }
         }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            Location = new Point(0, 0);
-        }
     }
 }
