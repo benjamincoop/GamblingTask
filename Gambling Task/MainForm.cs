@@ -1015,19 +1015,6 @@ namespace Gambling_Task
                     socket.ReceiveAsync(recieveArgs);
                 }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
-            } else
-            {
-                // attempt to connect socket
-                try
-                {
-                    socket.Bind(new IPEndPoint(IPAddress.Any, 25565));
-                    socket.Blocking = false;
-                    socket.Listen(1);
-                    SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
-                    connectArgs.Completed += ConnectCompleted;
-                    socket.AcceptAsync(connectArgs);
-                }
-                catch (Exception ex) { Console.WriteLine(ex.Message); }
             }
         }
 
