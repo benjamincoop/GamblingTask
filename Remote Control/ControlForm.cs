@@ -122,10 +122,10 @@ namespace Remote_Control
                 byte[] lenBuff = new byte[sizeof(int)];
                 socket.Receive(lenBuff);
                 int len = BitConverter.ToInt32(lenBuff, 0);
-
                 byte[] data = new byte[len];
                 socket.Receive(data, len, SocketFlags.None);
-                System.IO.File.AppendAllText(exportPath, BitConverter.ToString(data));
+                System.IO.File.AppendAllText(exportPath, Encoding.ASCII.GetString(data));
+                MessageBox.Show("Data exported.");
             }
         }
 
