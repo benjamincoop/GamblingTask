@@ -160,7 +160,8 @@ namespace Gambling_Task
                 socket.Listen(5);
                 SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
                 connectArgs.Completed += ConnectCompleted;
-                socket.AcceptAsync(connectArgs);
+                //socket.AcceptAsync(connectArgs);
+                socket.Accept();
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
