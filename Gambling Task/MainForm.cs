@@ -155,11 +155,11 @@ namespace Gambling_Task
             // attempt to connect socket
             try
             {
-                SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
-                connectArgs.Completed += ConnectCompleted;
                 socket.Bind(new IPEndPoint(IPAddress.Any, 25565));
                 socket.Blocking = true;
-                socket.Listen(1);
+                socket.Listen(5);
+                SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
+                connectArgs.Completed += ConnectCompleted;
                 socket.AcceptAsync(connectArgs);
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
