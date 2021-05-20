@@ -162,7 +162,6 @@ namespace Remote_Control
             // 
             // exportDataToolStripMenuItem
             // 
-            this.exportDataToolStripMenuItem.Enabled = false;
             this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
             this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportDataToolStripMenuItem.Text = "Export Data";
@@ -181,21 +180,21 @@ namespace Remote_Control
             // startStopToolStripMenuItem
             // 
             this.startStopToolStripMenuItem.Name = "startStopToolStripMenuItem";
-            this.startStopToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.startStopToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
             this.startStopToolStripMenuItem.Text = "Start/Stop";
             this.startStopToolStripMenuItem.Click += new System.EventHandler(this.startStopToolStripMenuItem_Click);
             // 
             // nextToolStripMenuItem
             // 
             this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
-            this.nextToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
             this.nextToolStripMenuItem.Text = "Next";
             this.nextToolStripMenuItem.Click += new System.EventHandler(this.nextToolStripMenuItem_Click);
             // 
             // previousToolStripMenuItem
             // 
             this.previousToolStripMenuItem.Name = "previousToolStripMenuItem";
-            this.previousToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.previousToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
             this.previousToolStripMenuItem.Text = "Previous";
             this.previousToolStripMenuItem.Click += new System.EventHandler(this.previousToolStripMenuItem_Click);
             // 

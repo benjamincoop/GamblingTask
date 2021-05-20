@@ -1065,6 +1065,13 @@ namespace Gambling_Task
                         ms.Close();
                     }
                     break;
+                case "export_data":
+                    byte[] export = Encoding.ASCII.GetBytes(Data.Serialize(Phase)); // the data to be exported
+                    byte[] len = BitConverter.GetBytes(export.Length); // the length of the data
+                    socket.Send(len);
+                    socket.Send(export);
+                    Data = new PhaseData();
+                    break;
                 case "start_stop":
                     MenuActionStartStop_Click(null, null);
                     break;

@@ -115,7 +115,18 @@ namespace Remote_Control
 
         private void exportDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(SaveDialog.ShowDialog() == DialogResult.OK)
+            {
+                string exportPath = SaveDialog.FileName;
+                SendCmd("export_data!");
+                byte[] lenBuff = new byte[sizeof(int)];
+                socket.Receive(lenBuff);
+                int len = BitConverter.ToInt32(lenBuff, 0);
 
+                byte[] data = new byte[len];
+                socket.Receive(data, len, SocketFlags.None);
+                System.IO.File.AppendAllText(exportPath, BitConverter.ToString(data));
+            }
         }
 
         private void startStopToolStripMenuItem_Click(object sender, EventArgs e)
