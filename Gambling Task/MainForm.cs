@@ -995,20 +995,6 @@ namespace Gambling_Task
                     MenuStrip.Enabled = true;
                     MenuStrip.Visible = true;
                 }
-            } else
-            {
-                if(e.Shift)
-                {
-                    Size = new Size(Size.Width + 10, Size.Height + 10);
-                    CenterToScreen();
-                } else
-                {
-                    if(e.Control)
-                    {
-                        Size = new Size(Size.Width - 10, Size.Height - 10);
-                        CenterToScreen();
-                    }
-                }
             }
         }
 
