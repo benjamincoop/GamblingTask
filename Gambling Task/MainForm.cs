@@ -156,7 +156,7 @@ namespace Gambling_Task
             try
             {
                 socket.Bind(new IPEndPoint(IPAddress.Any, 25565));
-                socket.Blocking = false;
+                socket.Blocking = true;
                 socket.Listen(1);
                 SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
                 connectArgs.Completed += ConnectCompleted;
