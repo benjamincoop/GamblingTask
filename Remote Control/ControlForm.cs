@@ -22,7 +22,14 @@ namespace Remote_Control
         string[] IPAddresses = { "", "", "", "" };
         int index = 0;
 
-        Socket socket = new TcpClient().Client;
+        Socket socket;
+        Socket[] sockets =
+        {
+            new TcpClient().Client,
+            new TcpClient().Client,
+            new TcpClient().Client,
+            new TcpClient().Client,
+        };
 
         private void ChamberSelectChanged(object sender, EventArgs e)
         {
@@ -30,6 +37,7 @@ namespace Remote_Control
             {
                 index = Convert.ToInt32(((RadioButton)sender).Text) - 1;
                 Controls.Find("IPAddressBox", false)[0].Text = IPAddresses[index];
+                socket = sockets[index];
             }
         }
 
