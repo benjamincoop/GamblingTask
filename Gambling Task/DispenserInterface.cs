@@ -12,24 +12,24 @@ namespace Gambling_Task
     {
         public static void Dispense(int amount)
         {
-            string pathToScript = "Dispense.py";
-            char[] splitter = { '\r' };
+            string command = "python";
+            string args = "/home/Desktop/GamblingTask-main/Gambling Task/bin/Debug/Dispense.py " + amount.ToString();
 
-            Process proc = new Process();
-            proc.StartInfo.FileName = "python.exe";
-            proc.StartInfo.RedirectStandardOutput = true;
-            proc.StartInfo.UseShellExecute = false;
+            //Process proc = new Process();
+            //proc.StartInfo.FileName = "python.exe";
+            //proc.StartInfo.RedirectStandardOutput = true;
+            //proc.StartInfo.UseShellExecute = false;
 
-            proc.StartInfo.Arguments = string.Concat(pathToScript, " ", amount.ToString());
-            proc.Start();
+            //proc.StartInfo.Arguments = string.Concat(pathToScript, " ", amount.ToString());
+            //proc.Start();
 
-            StreamReader sReader = proc.StandardOutput;
-            string[] output = sReader.ReadToEnd().Split(splitter);
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            processInfo.UseShellExecute = true;
+            processInfo.FileName = command;
+            processInfo.Arguments = args;
 
-            foreach (string s in output)
-                Console.WriteLine(s);
-
-            proc.WaitForExit();
+            Process.Start(processInfo);
         }
     }
 }
