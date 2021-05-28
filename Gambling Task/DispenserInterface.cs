@@ -14,7 +14,7 @@ namespace Gambling_Task
         {
             Process proc = new Process();
             proc.StartInfo.FileName = "python";
-            proc.StartInfo.Arguments = "/home/Desktop/GamblingTask-main/Gambling Task/bin/Debug/Test.py " + amount.ToString();
+            proc.StartInfo.Arguments = "/home/Desktop/GamblingTask-main/Gambling Task/PythonTest.py " + amount.ToString();
             proc.StartInfo.UseShellExecute = false;
             proc.StartInfo.RedirectStandardOutput = true;
             proc.Start();
