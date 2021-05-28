@@ -12,22 +12,13 @@ namespace Gambling_Task
     {
         public static void Dispense(int amount)
         {
-            string cmd = "/bin/bash";
-            string args = "-c ls";
-            //string args = "'/home/Desktop/GamblingTask-main/Gambling Task/PythonTest.py' " + amount.ToString();
-            ProcessStartInfo procInfo = new ProcessStartInfo();
-            procInfo.FileName = cmd;
-            procInfo.Arguments = args;
-            procInfo.UseShellExecute = false;
+            ProcessStartInfo procInfo = new ProcessStartInfo("/bin/bash", "-c ls");
             procInfo.RedirectStandardOutput = true;
-            Process.Start(procInfo);
-
-            //Process proc = new Process();
-            //proc.StartInfo.FileName = "python ;
-            //proc.StartInfo.Arguments = amount.ToString();
-            //proc.StartInfo.UseShellExecute = false;
-            //proc.StartInfo.RedirectStandardOutput = true;
-            //proc.Start();
+            procInfo.UseShellExecute = false;
+            procInfo.CreateNoWindow = true;
+            Process proc = new System.Diagnostics.Process();
+            proc.StartInfo = procInfo;
+            proc.Start();
         }
     }
 }
