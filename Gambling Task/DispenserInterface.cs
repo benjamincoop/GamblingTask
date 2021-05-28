@@ -12,7 +12,7 @@ namespace Gambling_Task
     {
         public static void Dispense(int amount)
         {
-            ProcessStartInfo procInfo = new ProcessStartInfo("/bin/bash", "-c ls");
+            ProcessStartInfo procInfo = new ProcessStartInfo("/bin/bash", "-c python");
             procInfo.RedirectStandardOutput = true;
             procInfo.UseShellExecute = false;
             procInfo.CreateNoWindow = true;
