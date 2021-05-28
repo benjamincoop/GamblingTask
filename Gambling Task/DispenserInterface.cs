@@ -12,8 +12,9 @@ namespace Gambling_Task
     {
         public static void Dispense(int amount)
         {
-            string cmd = "python";
-            string args = "'/home/Desktop/GamblingTask-main/Gambling Task/PythonTest.py' " + amount.ToString();
+            string cmd = "ls";
+            string args = "";
+            //string args = "'/home/Desktop/GamblingTask-main/Gambling Task/PythonTest.py' " + amount.ToString();
             ProcessStartInfo procInfo = new ProcessStartInfo();
             procInfo.FileName = cmd;
             procInfo.Arguments = args;
