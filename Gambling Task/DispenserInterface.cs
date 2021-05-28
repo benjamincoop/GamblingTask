@@ -13,8 +13,8 @@ namespace Gambling_Task
         public static void Dispense(int amount)
         {
             Process proc = new Process();
-            proc.StartInfo.FileName = "/bin/bash";
-            proc.StartInfo.Arguments = "python /home/Desktop/GamblingTask-main/Gambling Task/bin/Debug/Dispense.py " + amount.ToString();
+            proc.StartInfo.FileName = "python";
+            proc.StartInfo.Arguments = "/home/Desktop/GamblingTask-main/Gambling Task/bin/Debug/Test.py " + amount.ToString();
             proc.StartInfo.UseShellExecute = false;
             proc.StartInfo.RedirectStandardOutput = true;
             proc.Start();

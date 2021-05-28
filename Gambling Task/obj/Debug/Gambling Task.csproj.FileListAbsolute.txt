@@ -46,4 +46,3 @@ C:\Users\nebab\Source\Repos\benjamincoop\GamblingTask\Gambling Task\obj\Debug\Ga
 C:\Users\nebab\Source\Repos\benjamincoop\GamblingTask\Gambling Task\obj\Debug\Gambling Task.csproj.CoreCompileInputs.cache
 C:\Users\nebab\Source\Repos\benjamincoop\GamblingTask\Gambling Task\obj\Debug\Gambling Task.exe
 C:\Users\nebab\Source\Repos\benjamincoop\GamblingTask\Gambling Task\obj\Debug\Gambling Task.pdb
-C:\Users\nebab\Source\Repos\GamblingTask\Gambling Task\obj\Debug\Gambling Task.csprojAssemblyReference.cache
