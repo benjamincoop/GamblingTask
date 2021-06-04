@@ -1,1 +1,1 @@
-print("You entered: ")
+print("You entered: " + sys.argv[1])
