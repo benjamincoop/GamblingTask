@@ -1023,7 +1023,7 @@ namespace Gambling_Task
         }
 
         /// <summary>
-        /// Sends a simple string message to the remote control host
+        /// Sends a string message to the remote control host
         /// </summary>
         /// <param name="msg"></param>
         private void SendMessage(string msg)
@@ -1034,6 +1034,27 @@ namespace Gambling_Task
                 byte[] msgLen = BitConverter.GetBytes(msgBuff.Length); // the length of the message
                 socket.Send(msgLen);
                 socket.Send(msgBuff);
+            }
+        }
+
+        /// <summary>
+        /// Recieves a string message from remote control host
+        /// </summary>
+        /// <returns></returns>
+        private string RecieveMessage()
+        {
+            if (socket.Connected)
+            {
+                byte[] lenBuff = new byte[sizeof(int)];
+                socket.Receive(lenBuff);
+                int len = BitConverter.ToInt32(lenBuff, 0);
+                byte[] message = new byte[len];
+                socket.Receive(message, len, SocketFlags.None);
+                return Encoding.ASCII.GetString(message);
+            }
+            else
+            {
+                return "ERROR: SOCKET DISCONNECTED";
             }
         }
 
@@ -1133,9 +1154,7 @@ namespace Gambling_Task
                     break;
                 case "queue":
                     // recieve the queue position
-                    byte[] posBuff = new byte[sizeof(int)];
-                    socket.Receive(posBuff);
-                    int pos = BitConverter.ToInt32(posBuff, 0);
+                    int pos = Int32.Parse(RecieveMessage());
 
                     // update queue
                     if (phaseQueue.Length < pos + 1)

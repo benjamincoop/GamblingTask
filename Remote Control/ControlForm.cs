@@ -80,6 +80,25 @@ namespace Remote_Control
             }
         }
 
+        /// <summary>
+        /// Sends a string message to the remote control host
+        /// </summary>
+        /// <param name="msg"></param>
+        private void SendMessage(string msg)
+        {
+            if (socket.Connected)
+            {
+                byte[] msgBuff = Encoding.ASCII.GetBytes(msg); // the message to be sent
+                byte[] msgLen = BitConverter.GetBytes(msgBuff.Length); // the length of the message
+                socket.Send(msgLen);
+                socket.Send(msgBuff);
+            }
+        }
+
+        /// <summary>
+        /// Recieves a string message from remote control host
+        /// </summary>
+        /// <returns></returns>
         private string RecieveMessage()
         {
             if (socket.Connected)
@@ -208,8 +227,7 @@ namespace Remote_Control
             if (queueEditor.ShowDialog() == DialogResult.OK)
             {
                 SendCmd("queue!");
-                byte[] posBuff = BitConverter.GetBytes(CurrentPhase);
-                socket.Send(posBuff);
+                SendMessage(CurrentPhase.ToString());
             }
         }
     }
