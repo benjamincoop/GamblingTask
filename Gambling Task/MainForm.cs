@@ -1153,7 +1153,38 @@ namespace Gambling_Task
                     SendMessage(statusMsg);
                     break;
                 case "edit":
-                    SendMessage("COMMAND RECIEVED");
+                    // recieve the queue position
+                    int pos = int.Parse(RecieveMessage());
+                    bool saved = false;
+
+                    // update queue
+                    if (phaseQueue.Length < pos + 1)
+                    {
+                        Array.Resize(ref phaseQueue, pos + 1);
+                    }
+
+                    if (phaseQueue[pos] == null)
+                    {
+                        phaseQueue[pos] = Phase;
+                        saved = true;
+                    }
+                    else
+                    {
+                        Phase = phaseQueue[pos];
+                        saved = false;
+                    }
+
+                    UpdateEngine();
+                    UpdateLooks();
+
+                    if(saved)
+                    {
+                        SendMessage("Saved configuration to selected queue position.");
+                    } else
+                    {
+                        SendMessage("Loaded configuration from selected queue position.");
+                    }
+
                     break;
                 default:
                     Console.WriteLine(cmd);

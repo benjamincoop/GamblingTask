@@ -220,8 +220,13 @@ namespace Remote_Control
 
         private void queueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendCmd("edit!");
-            MessageBox.Show(RecieveMessage());
+            QueueConfigForm queueConfigForm = new QueueConfigForm(this);
+            if(queueConfigForm.ShowDialog() == DialogResult.OK)
+            {
+                SendCmd("edit!");
+                SendMessage(CurrentPhase.ToString());
+                MessageBox.Show(RecieveMessage());
+            }
         }
     }
 }
