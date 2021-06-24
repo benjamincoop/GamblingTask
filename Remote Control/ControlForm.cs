@@ -178,12 +178,14 @@ namespace Remote_Control
                 isRunning = false;
                 nextToolStripMenuItem.Enabled = true;
                 previousToolStripMenuItem.Enabled = true;
+                loadPhaseToolStripMenuItem.Enabled = true;
             }
             else
             {
                 isRunning = true;
                 nextToolStripMenuItem.Enabled = false;
                 previousToolStripMenuItem.Enabled = false;
+                loadPhaseToolStripMenuItem.Enabled = false;
             }
             SendCmd("start_stop!");
         }
