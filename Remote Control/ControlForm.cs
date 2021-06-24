@@ -217,5 +217,11 @@ namespace Remote_Control
             SendCmd("status!");
             MessageBox.Show(RecieveMessage());
         }
+
+        private void queueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendCmd("edit!");
+            MessageBox.Show(RecieveMessage());
+        }
     }
 }

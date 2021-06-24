@@ -1152,6 +1152,9 @@ namespace Gambling_Task
                     }
                     SendMessage(statusMsg);
                     break;
+                case "edit":
+                    SendMessage("COMMAND RECIEVED");
+                    break;
                 default:
                     Console.WriteLine(cmd);
                     break;

@@ -49,6 +49,8 @@ namespace Remote_Control
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.queueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectionGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -136,6 +138,7 @@ namespace Remote_Control
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.phaseToolStripMenuItem1,
             this.statusToolStripMenuItem,
             this.helpToolStripMenuItem,
@@ -225,6 +228,21 @@ namespace Remote_Control
             // 
             this.OpenDialog.FileName = "openFileDialog1";
             // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.queueToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // queueToolStripMenuItem
+            // 
+            this.queueToolStripMenuItem.Name = "queueToolStripMenuItem";
+            this.queueToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.queueToolStripMenuItem.Text = "Queue";
+            this.queueToolStripMenuItem.Click += new System.EventHandler(this.queueToolStripMenuItem_Click);
+            // 
             // ControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -268,6 +286,8 @@ namespace Remote_Control
         private System.Windows.Forms.OpenFileDialog OpenDialog;
         private System.Windows.Forms.SaveFileDialog SaveDialog;
         private System.Windows.Forms.ToolStripMenuItem statusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem queueToolStripMenuItem;
     }
 }
 
