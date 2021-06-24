@@ -213,22 +213,18 @@ namespace Remote_Control
         private void statusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SendCmd("status!");
-            byte[] lenBuff = new byte[sizeof(int)];
-            socket.Receive(lenBuff);
-            int len = BitConverter.ToInt32(lenBuff, 0);
-            byte[] statusMsg = new byte[len];
-            socket.Receive(statusMsg, len, SocketFlags.None);
-            MessageBox.Show(Encoding.ASCII.GetString(statusMsg));
+            MessageBox.Show(RecieveMessage());
         }
 
         private void queueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form queueEditor = new QueueConfigForm(this);
-            if (queueEditor.ShowDialog() == DialogResult.OK)
-            {
-                SendCmd("queue!");
-                SendMessage(CurrentPhase.ToString());
-            }
+            SendCmd("edit_queue!");
+            //Form queueEditor = new QueueConfigForm(this);
+            //if (queueEditor.ShowDialog() == DialogResult.OK)
+            //{
+            //    SendCmd("queue!");
+            //SendMessage("HELLO???");
+            //}
         }
     }
 }

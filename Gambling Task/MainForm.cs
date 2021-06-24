@@ -1152,27 +1152,8 @@ namespace Gambling_Task
                     }
                     SendMessage(statusMsg);
                     break;
-                case "queue":
-                    // recieve the queue position
-                    int pos = Int32.Parse(RecieveMessage());
-
-                    // update queue
-                    if (phaseQueue.Length < pos + 1)
-                    {
-                        Array.Resize(ref phaseQueue, pos + 1);
-                    }
-
-                    if (phaseQueue[pos] == null)
-                    {
-                        phaseQueue[pos] = Phase;
-                    }
-                    else
-                    {
-                        Phase = phaseQueue[pos];
-                    }
-
-                    UpdateEngine();
-                    UpdateLooks();
+                case "edit_queue":
+                    MessageBox.Show("OK");
                     break;
                 default:
                     Console.WriteLine(cmd);
