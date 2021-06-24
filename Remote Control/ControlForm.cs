@@ -156,6 +156,7 @@ namespace Remote_Control
             {
                 SendCmd("load_phase!");
                 SendFile(OpenDialog.FileName);
+                MessageBox.Show(RecieveMessage());
             }
         }
 

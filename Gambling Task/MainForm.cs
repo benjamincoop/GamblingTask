@@ -1123,6 +1123,7 @@ namespace Gambling_Task
                         UpdateEngine();
                         UpdateLooks();
                         ms.Close();
+                        SendMessage("File loaded.");
                     }
                     break;
                 case "export_data":
