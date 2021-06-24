@@ -767,14 +767,26 @@ namespace Gambling_Task
             {
                 CurrentPhase++;
                 Phase = phaseQueue[CurrentPhase];
-                MessageBox.Show("Loaded next phase in queue.");
+                if(socket.Connected)
+                {
+                    SendMessage("Loaded next phase in queue.");
+                } else
+                {
+                    MessageBox.Show("Loaded next phase in queue.");
+                }
                 UpdateEngine();
                 UpdateLooks();
                 return true;
             }
             else
             {
-                MessageBox.Show("End of queue reached.");
+                if(socket.Connected)
+                {
+                    SendMessage("End of queue reached.");
+                } else
+                {
+                    MessageBox.Show("End of queue reached.");
+                }
                 return false;
             }
         }
@@ -807,14 +819,26 @@ namespace Gambling_Task
             {
                 CurrentPhase--;
                 Phase = phaseQueue[CurrentPhase];
-                MessageBox.Show("Loaded previous phase in queue.");
+                if(socket.Connected)
+                {
+                    SendMessage("Loaded previous phase in queue.");
+                } else
+                {
+                    MessageBox.Show("Loaded previous phase in queue.");
+                }
                 UpdateEngine();
                 UpdateLooks();
                 return true;
             }
             else
             {
-                MessageBox.Show("Start of queue reached.");
+                if(socket.Connected)
+                {
+                    SendMessage("Start of queue reached.");
+                } else
+                {
+                    MessageBox.Show("Start of queue reached.");
+                }
                 return false;
             }
         }
@@ -999,6 +1023,21 @@ namespace Gambling_Task
         }
 
         /// <summary>
+        /// Sends a simple string message to the remote control host
+        /// </summary>
+        /// <param name="msg"></param>
+        private void SendMessage(string msg)
+        {
+            if(socket.Connected)
+            {
+                byte[] msgBuff = Encoding.ASCII.GetBytes(msg); // the message to be sent
+                byte[] msgLen = BitConverter.GetBytes(msgBuff.Length); // the length of the message
+                socket.Send(msgLen);
+                socket.Send(msgBuff);
+            }
+        }
+
+        /// <summary>
         /// Recieves an incoming command from the remote control program
         /// </summary>
         /// <returns></returns>
@@ -1090,10 +1129,7 @@ namespace Gambling_Task
                     {
                         statusMsg += "\nPhase: " + (CurrentPhase + 1).ToString() + " of " + phaseQueue.Length.ToString();
                     }
-                    byte[] statusBuff = Encoding.ASCII.GetBytes(statusMsg); // the message to be sent
-                    byte[] statusLen = BitConverter.GetBytes(statusBuff.Length); // the length of the message
-                    socket.Send(statusLen);
-                    socket.Send(statusBuff);
+                    SendMessage(statusMsg);
                     break;
                 default:
                     Console.WriteLine(cmd);

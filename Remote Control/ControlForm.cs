@@ -79,6 +79,22 @@ namespace Remote_Control
             }
         }
 
+        private string RecieveMessage()
+        {
+            if(socket.Connected)
+            {
+                byte[] lenBuff = new byte[sizeof(int)];
+                socket.Receive(lenBuff);
+                int len = BitConverter.ToInt32(lenBuff, 0);
+                byte[] message = new byte[len];
+                socket.Receive(message, len, SocketFlags.None);
+                return Encoding.ASCII.GetString(message);
+            } else
+            {
+                return "ERROR: SOCKET DISCONNECTED";
+            }
+        }
+
         private void SendCompleted(object sender, SocketAsyncEventArgs e)
         {
         }
@@ -128,12 +144,8 @@ namespace Remote_Control
             {
                 string exportPath = SaveDialog.FileName;
                 SendCmd("export_data!");
-                byte[] lenBuff = new byte[sizeof(int)];
-                socket.Receive(lenBuff);
-                int len = BitConverter.ToInt32(lenBuff, 0);
-                byte[] data = new byte[len];
-                socket.Receive(data, len, SocketFlags.None);
-                System.IO.File.AppendAllText(exportPath, Encoding.ASCII.GetString(data));
+                string data = RecieveMessage();
+                System.IO.File.AppendAllText(exportPath, data);
                 MessageBox.Show("Data exported.");
             }
         }
@@ -157,11 +169,13 @@ namespace Remote_Control
         private void nextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SendCmd("next_phase!");
+            MessageBox.Show(RecieveMessage());
         }
 
         private void previousToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SendCmd("prev_phase!");
+            MessageBox.Show(RecieveMessage());
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
