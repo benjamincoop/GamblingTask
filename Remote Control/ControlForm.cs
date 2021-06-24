@@ -208,6 +208,8 @@ namespace Remote_Control
             if (queueEditor.ShowDialog() == DialogResult.OK)
             {
                 SendCmd("queue!");
+                byte[] posBuff = BitConverter.GetBytes(CurrentPhase);
+                socket.Send(posBuff);
             }
         }
     }
