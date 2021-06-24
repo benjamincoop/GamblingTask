@@ -1084,6 +1084,17 @@ namespace Gambling_Task
                 case "exit":
                     MenuExit_Click(null, null);
                     break;
+                case "status":
+                    string statusMsg = "Trials run: " + Data.NumTrials.ToString();
+                    if(phaseQueue.Length > 1)
+                    {
+                        statusMsg += "\nPhase: " + (CurrentPhase + 1).ToString() + " of " + phaseQueue.Length.ToString();
+                    }
+                    byte[] statusBuff = Encoding.ASCII.GetBytes(statusMsg); // the message to be sent
+                    byte[] statusLen = BitConverter.GetBytes(statusBuff.Length); // the length of the message
+                    socket.Send(statusLen);
+                    socket.Send(statusBuff);
+                    break;
                 default:
                     Console.WriteLine(cmd);
                     break;

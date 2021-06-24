@@ -48,6 +48,7 @@ namespace Remote_Control
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.statusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectionGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -136,6 +137,7 @@ namespace Remote_Control
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.phaseToolStripMenuItem1,
+            this.statusToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -156,14 +158,14 @@ namespace Remote_Control
             // loadPhaseToolStripMenuItem
             // 
             this.loadPhaseToolStripMenuItem.Name = "loadPhaseToolStripMenuItem";
-            this.loadPhaseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.loadPhaseToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.loadPhaseToolStripMenuItem.Text = "Load Phase";
             this.loadPhaseToolStripMenuItem.Click += new System.EventHandler(this.loadPhaseToolStripMenuItem_Click);
             // 
             // exportDataToolStripMenuItem
             // 
             this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
-            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.exportDataToolStripMenuItem.Text = "Export Data";
             this.exportDataToolStripMenuItem.Click += new System.EventHandler(this.exportDataToolStripMenuItem_Click);
             // 
@@ -180,21 +182,21 @@ namespace Remote_Control
             // startStopToolStripMenuItem
             // 
             this.startStopToolStripMenuItem.Name = "startStopToolStripMenuItem";
-            this.startStopToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.startStopToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.startStopToolStripMenuItem.Text = "Start/Stop";
             this.startStopToolStripMenuItem.Click += new System.EventHandler(this.startStopToolStripMenuItem_Click);
             // 
             // nextToolStripMenuItem
             // 
             this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
-            this.nextToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.nextToolStripMenuItem.Text = "Next";
             this.nextToolStripMenuItem.Click += new System.EventHandler(this.nextToolStripMenuItem_Click);
             // 
             // previousToolStripMenuItem
             // 
             this.previousToolStripMenuItem.Name = "previousToolStripMenuItem";
-            this.previousToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.previousToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.previousToolStripMenuItem.Text = "Previous";
             this.previousToolStripMenuItem.Click += new System.EventHandler(this.previousToolStripMenuItem_Click);
             // 
@@ -215,6 +217,13 @@ namespace Remote_Control
             // OpenDialog
             // 
             this.OpenDialog.FileName = "openFileDialog1";
+            // 
+            // statusToolStripMenuItem
+            // 
+            this.statusToolStripMenuItem.Name = "statusToolStripMenuItem";
+            this.statusToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
+            this.statusToolStripMenuItem.Text = "Status";
+            this.statusToolStripMenuItem.Click += new System.EventHandler(this.statusToolStripMenuItem_Click);
             // 
             // ControlForm
             // 
@@ -258,6 +267,7 @@ namespace Remote_Control
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog OpenDialog;
         private System.Windows.Forms.SaveFileDialog SaveDialog;
+        private System.Windows.Forms.ToolStripMenuItem statusToolStripMenuItem;
     }
 }
 

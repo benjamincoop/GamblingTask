@@ -161,5 +161,16 @@ namespace Remote_Control
         {
             SendCmd("exit!");
         }
+
+        private void statusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendCmd("status!");
+            byte[] lenBuff = new byte[sizeof(int)];
+            socket.Receive(lenBuff);
+            int len = BitConverter.ToInt32(lenBuff, 0);
+            byte[] statusMsg = new byte[len];
+            socket.Receive(statusMsg, len, SocketFlags.None);
+            MessageBox.Show(Encoding.ASCII.GetString(statusMsg));
+        }
     }
 }
