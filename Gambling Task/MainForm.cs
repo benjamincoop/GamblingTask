@@ -1131,6 +1131,30 @@ namespace Gambling_Task
                     }
                     SendMessage(statusMsg);
                     break;
+                case "queue":
+                    // recieve the queue position
+                    byte[] posBuff = new byte[sizeof(int)];
+                    socket.Receive(posBuff);
+                    int pos = BitConverter.ToInt32(posBuff, 0);
+
+                    // update queue
+                    if (phaseQueue.Length < pos + 1)
+                    {
+                        Array.Resize(ref phaseQueue, pos + 1);
+                    }
+
+                    if (phaseQueue[pos] == null)
+                    {
+                        phaseQueue[pos] = Phase;
+                    }
+                    else
+                    {
+                        Phase = phaseQueue[pos];
+                    }
+
+                    UpdateEngine();
+                    UpdateLooks();
+                    break;
                 default:
                     Console.WriteLine(cmd);
                     break;

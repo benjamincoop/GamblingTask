@@ -18,7 +18,8 @@ namespace Remote_Control
         }
 
         private string exportPath = ""; // the external location to save data to
-        private bool isRunning = false;
+        private bool isRunning = false; // indicates if the trials are started or stopped
+        public int CurrentPhase { get; set; } // the index of the current phase in the phase queue.
 
         string[] IPAddresses = { "", "", "", "" };
         int index = 0;
@@ -34,7 +35,7 @@ namespace Remote_Control
 
         private void ChamberSelectChanged(object sender, EventArgs e)
         {
-            if(((RadioButton)sender).Checked)
+            if (((RadioButton)sender).Checked)
             {
                 index = Convert.ToInt32(((RadioButton)sender).Text) - 1;
                 Controls.Find("IPAddressBox", false)[0].Text = IPAddresses[index];
@@ -81,7 +82,7 @@ namespace Remote_Control
 
         private string RecieveMessage()
         {
-            if(socket.Connected)
+            if (socket.Connected)
             {
                 byte[] lenBuff = new byte[sizeof(int)];
                 socket.Receive(lenBuff);
@@ -89,7 +90,8 @@ namespace Remote_Control
                 byte[] message = new byte[len];
                 socket.Receive(message, len, SocketFlags.None);
                 return Encoding.ASCII.GetString(message);
-            } else
+            }
+            else
             {
                 return "ERROR: SOCKET DISCONNECTED";
             }
@@ -131,16 +133,16 @@ namespace Remote_Control
         /// <param name="e"></param>
         private void loadPhaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(OpenDialog.ShowDialog() == DialogResult.OK)
+            if (OpenDialog.ShowDialog() == DialogResult.OK)
             {
                 SendCmd("load_phase!");
                 SendFile(OpenDialog.FileName);
-            }      
+            }
         }
 
         private void exportDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(SaveDialog.ShowDialog() == DialogResult.OK)
+            if (SaveDialog.ShowDialog() == DialogResult.OK)
             {
                 string exportPath = SaveDialog.FileName;
                 SendCmd("export_data!");
@@ -152,12 +154,13 @@ namespace Remote_Control
 
         private void startStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(isRunning)
+            if (isRunning)
             {
                 isRunning = false;
                 nextToolStripMenuItem.Enabled = true;
                 previousToolStripMenuItem.Enabled = true;
-            } else
+            }
+            else
             {
                 isRunning = true;
                 nextToolStripMenuItem.Enabled = false;
@@ -197,6 +200,15 @@ namespace Remote_Control
             byte[] statusMsg = new byte[len];
             socket.Receive(statusMsg, len, SocketFlags.None);
             MessageBox.Show(Encoding.ASCII.GetString(statusMsg));
+        }
+
+        private void queueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form queueEditor = new QueueConfigForm(this);
+            if (queueEditor.ShowDialog() == DialogResult.OK)
+            {
+                SendCmd("queue!");
+            }
         }
     }
 }
