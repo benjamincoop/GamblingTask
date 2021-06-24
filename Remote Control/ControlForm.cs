@@ -223,8 +223,7 @@ namespace Remote_Control
             QueueConfigForm queueConfigForm = new QueueConfigForm(this);
             if(queueConfigForm.ShowDialog() == DialogResult.OK)
             {
-                SendCmd("edit!");
-                SendMessage(CurrentPhase.ToString());
+                SendCmd("queue!" + CurrentPhase.ToString() + "!");
                 MessageBox.Show(RecieveMessage());
             }
         }

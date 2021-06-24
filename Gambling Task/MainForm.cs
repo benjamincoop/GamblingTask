@@ -1082,7 +1082,7 @@ namespace Gambling_Task
         {
             if (manualControl == false)
             {
-                ParseCmd(Encoding.ASCII.GetString(buffer).Split('!')[0]);
+                ParseCmd(Encoding.ASCII.GetString(buffer).Split('!'));
                 RecieveCmd();
             }
 
@@ -1092,9 +1092,9 @@ namespace Gambling_Task
         /// Maps the string commands recieved from remote to appropriate functions
         /// </summary>
         /// <param name="cmd"></param>
-        private void ParseCmd(string cmd)
+        private void ParseCmd(string[] cmd)
         {
-            switch (cmd)
+            switch (cmd[0])
             {
                 case "load_phase":
                     Thread.Sleep(1000); // block for a second to resolve timing issues
@@ -1152,12 +1152,12 @@ namespace Gambling_Task
                     }
                     SendMessage(statusMsg);
                     break;
-                case "edit":
-                    // recieve the queue position
-                    int pos = int.Parse(RecieveMessage());
-                    bool saved = false;
+                case "queue":
+                    // parse out the queue position
+                    int pos = int.Parse(cmd[1]);
 
                     // update queue
+                    bool saved = false;
                     if (phaseQueue.Length < pos + 1)
                     {
                         Array.Resize(ref phaseQueue, pos + 1);
