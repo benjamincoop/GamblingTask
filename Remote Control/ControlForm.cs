@@ -18,6 +18,7 @@ namespace Remote_Control
         }
 
         private string exportPath = ""; // the external location to save data to
+        private bool isRunning = false;
 
         string[] IPAddresses = { "", "", "", "" };
         int index = 0;
@@ -139,6 +140,17 @@ namespace Remote_Control
 
         private void startStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(isRunning)
+            {
+                isRunning = false;
+                nextToolStripMenuItem.Enabled = true;
+                previousToolStripMenuItem.Enabled = true;
+            } else
+            {
+                isRunning = true;
+                nextToolStripMenuItem.Enabled = false;
+                previousToolStripMenuItem.Enabled = false;
+            }
             SendCmd("start_stop!");
         }
 
