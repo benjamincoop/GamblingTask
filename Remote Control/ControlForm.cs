@@ -180,6 +180,7 @@ namespace Remote_Control
                 nextToolStripMenuItem.Enabled = true;
                 previousToolStripMenuItem.Enabled = true;
                 loadPhaseToolStripMenuItem.Enabled = true;
+                queueToolStripMenuItem.Enabled = true;
             }
             else
             {
@@ -187,6 +188,7 @@ namespace Remote_Control
                 nextToolStripMenuItem.Enabled = false;
                 previousToolStripMenuItem.Enabled = false;
                 loadPhaseToolStripMenuItem.Enabled = false;
+                queueToolStripMenuItem.Enabled = false;
             }
             SendCmd("start_stop!");
         }
