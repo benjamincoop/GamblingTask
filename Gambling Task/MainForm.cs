@@ -1152,9 +1152,6 @@ namespace Gambling_Task
                     }
                     SendMessage(statusMsg);
                     break;
-                case "edit_queue":
-                    MessageBox.Show("OK");
-                    break;
                 default:
                     Console.WriteLine(cmd);
                     break;

@@ -215,16 +215,5 @@ namespace Remote_Control
             SendCmd("status!");
             MessageBox.Show(RecieveMessage());
         }
-
-        private void queueToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SendCmd("edit_queue!");
-            //Form queueEditor = new QueueConfigForm(this);
-            //if (queueEditor.ShowDialog() == DialogResult.OK)
-            //{
-            //    SendCmd("queue!");
-            //SendMessage("HELLO???");
-            //}
-        }
     }
 }
